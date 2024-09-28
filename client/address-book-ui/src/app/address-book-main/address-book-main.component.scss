@@ -15,8 +15,8 @@
 
 .row.header {
     font-weight: bold;
-    background-color: $primary-color; /* Blue header background */
-    color: white; /* White text for contrast */
+    background-color: $primary-color;
+    color: white;
 }
 
 .cell {
@@ -52,10 +52,10 @@
 }
 
 .detail-item {
-    margin: 0.2rem 0; /* Space between items */
+    margin: 0.2rem 0;
     color: #373737;
 }
 
 .detail-item strong {
-    color: #000000; /* Blue text for labels */
+    color: #000000;
 }
