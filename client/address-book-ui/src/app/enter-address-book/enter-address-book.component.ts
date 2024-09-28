@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-enter-address-book',
@@ -8,17 +9,19 @@ import { Component } from '@angular/core';
 export class EnterAddressBookComponent {
     name: string | undefined;
     isDisabled: boolean = true;
+    hasError: boolean = false;
 
-    constructor() {}
+    constructor(private router: Router) {}
 
-    onInputTyping(event: Event): void {
-        this.name = (event.target as HTMLInputElement).value.trim();
+    onInputTyping(inputValue: string): void {
+        this.name = inputValue.trim();
         this.isDisabled = !this.name;
+        this.hasError = !this.name;
     }
 
     onEnterAddressBook(): void {
         if (this.name && !!this.name.trim()) {
-            console.log(this.name);
+            this.router.navigate(['/address-book']);
         }
     }
 }

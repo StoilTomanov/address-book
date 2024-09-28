@@ -1,7 +1,28 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .enter-address-book {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 30%;
     align-items: center;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem #a6d1ff;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeIn 2s;
+}
+
+.enter-address-book h3 {
+    text-align: center;
 }

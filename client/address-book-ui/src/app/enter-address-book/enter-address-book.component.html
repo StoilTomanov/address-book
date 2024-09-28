@@ -1,5 +1,5 @@
 <div class="enter-address-book">
     <h3>Enter your name to access your address book</h3>
-    <input type="text" name="name" id="name" (input)="onInputTyping($event)">
+    <app-cc-simple-input [hasError]="hasError" [errorMessage]="'populate name'" (onInput)="onInputTyping($event)"></app-cc-simple-input>
     <app-cc-button [value]="'Enter'" [isDisabled]="isDisabled" (onClicked)="onEnterAddressBook()"></app-cc-button>
 </div>

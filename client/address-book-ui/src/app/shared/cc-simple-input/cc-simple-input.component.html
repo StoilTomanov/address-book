@@ -1,0 +1,7 @@
+<div [ngClass]="{'error': hasError}" class="input-wrapper">
+    <input [ngClass]="{'error': hasError}" type="text" name="name" class="input-field" (input)="onInputTyping($event)">
+    <span *ngIf="hasError" (mouseover)="showTooltip()" (mouseleave)="hideTooltip()" class="info-icon">i</span>
+    <p *ngIf="showTooltipElement" class="tooltip-msg">
+        {{errorMessage}}
+    </p>
+</div>
