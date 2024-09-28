@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EnterAddressBookComponent } from './enter-address-book.component';
+import { CcButtonComponent } from '../shared/cc-button/cc-button.component';
 
 describe('EnterAddressBookComponent', () => {
     let component: EnterAddressBookComponent;
@@ -8,7 +9,7 @@ describe('EnterAddressBookComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [EnterAddressBookComponent],
+            declarations: [EnterAddressBookComponent, CcButtonComponent],
         });
         fixture = TestBed.createComponent(EnterAddressBookComponent);
         component = fixture.componentInstance;
