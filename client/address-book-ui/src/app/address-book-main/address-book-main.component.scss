@@ -1,0 +1,61 @@
+@import '../../styles.scss';
+
+.table {
+    border-collapse: collapse;
+    padding: 0.5rem;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    border-bottom: 0.02rem solid #ccc;
+    transition: background-color 0.2s;
+}
+
+.row.header {
+    font-weight: bold;
+    background-color: $primary-color; /* Blue header background */
+    color: white; /* White text for contrast */
+}
+
+.cell {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+.dropdown-icon {
+    margin-left: 2rem;
+    transition: transform 0.2s;
+}
+
+.row:not(.header):hover {
+    background-color: $row-hover-color;
+}
+
+.row:not(.header) {
+    cursor: pointer;
+}
+
+.row.expanded {
+    background-color: #d4edda;
+}
+
+//  details
+
+.details {
+    padding: 1rem;
+    background-color: $row-color;
+    border-left: 0.1rem solid $primary-color;
+    border-bottom: 0.1rem solid $primary-color;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.detail-item {
+    margin: 0.2rem 0; /* Space between items */
+    color: #373737;
+}
+
+.detail-item strong {
+    color: #000000; /* Blue text for labels */
+}

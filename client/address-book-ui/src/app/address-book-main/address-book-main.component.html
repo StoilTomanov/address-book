@@ -1,1 +1,28 @@
-<p>address-book-main works!</p>
+<div class="table">
+    <div class="row header">
+      <div class="cell">Name</div>
+      <div class="cell">Phone</div>
+      <div class="cell">Email</div>
+    </div>
+    
+    <div *ngFor="let row of rows">
+      <div class="row" (click)="toggleRowDetails(row)">
+        <div class="cell">{{ row.name }}</div>
+        <div class="cell">{{ row.phone }}</div>
+        <div class="cell">{{ row.email }}</div>
+        <div class="dropdown-icon">▼</div>
+      </div>
+      
+      <div class="details" *ngIf="row.expanded">
+          <div class="detail-item"><strong>Name:</strong> {{row.name}}</div>
+          <div class="detail-item"><strong>Phone:</strong> {{row.phone}}</div>
+          <div class="detail-item"><strong>Email:</strong> {{row.email}}</div>
+          <div class="detail-item"><strong>Address:</strong> {{row.address}}</div>
+          <div class="detail-item"><strong>Job role:</strong> {{row.jobRole}}</div>
+        <div class="detail-item"><strong>LinkedIn:</strong> {{row.linkedIn}}</div>
+        <div class="detail-item"><strong>Birthday:</strong> {{row.birthday}}</div>
+        <div class="detail-item"><strong>Notes:</strong> {{row.notes}}</div>
+      </div>
+    </div>
+  </div>
+  
