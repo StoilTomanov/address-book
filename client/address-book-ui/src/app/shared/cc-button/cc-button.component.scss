@@ -1,0 +1,27 @@
+.cc-button {
+    border: 0.01rem solid #5db5fd;
+    background-color: transparent;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    border-radius: 0.3rem;
+    transition: 0.2s ease-in-out;
+}
+
+.cc-button:disabled {
+    background-color: #efefef;
+    color: #363636;
+    box-shadow: none;
+    border: none;
+}
+
+.cc-button:active:not(:disabled) {
+    transition: 0.05s ease-in-out;
+    border: 0.02rem solid #ffffff;
+}
+
+.cc-button:hover:not(:disabled) {
+    background-color: #5db5fd;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0.1rem 0.1rem 0.1rem 0.08rem #797979;
+}
