@@ -1,13 +1,7 @@
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
+@import '../../mixins.scss';
 
 .enter-address-book {
+    @include fadeIn-animation(1s);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -20,7 +14,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: fadeIn 2s;
 }
 
 .enter-address-book h3 {

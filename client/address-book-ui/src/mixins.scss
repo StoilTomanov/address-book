@@ -1,0 +1,53 @@
+@mixin shake-animation($duration: 1s) {
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(5px);
+        }
+        50% {
+            transform: translateX(-5px);
+        }
+        75% {
+            transform: translateX(5px);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    animation: shake $duration ease-in-out;
+}
+
+@mixin fadeIn-animation($duration: 1s) {
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    animation: fadeIn $duration ease-in-out;
+}
+
+@mixin collapse-animation($duration: 1s) {
+    @keyframes collapse {
+        0% {
+            height: 0;
+            // opacity: 0; // Start hidden
+            overflow: hidden; // Prevent overflow
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+        100% {
+            height: 100%;
+            // opacity: 1; // Start hidden
+            overflow: hidden; // Prevent overflow
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+    }
+
+    animation: collapse $duration ease-in-out;
+}

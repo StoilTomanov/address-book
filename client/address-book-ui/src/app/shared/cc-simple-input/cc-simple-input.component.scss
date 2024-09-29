@@ -1,29 +1,4 @@
-@keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(5px);
-    }
-    50% {
-        transform: translateX(-5px);
-    }
-    75% {
-        transform: translateX(5px);
-    }
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
+@import '../../../mixins.scss';
 
 .input-field {
     border: 0.01rem solid rgb(207, 207, 207);
@@ -62,18 +37,18 @@
 }
 
 .input-wrapper.error {
+    @include shake-animation(0.3s);
     border: 0.01rem solid rgb(255, 0, 0);
     border-radius: 0.3rem;
     transition: 0.3s ease-in-out;
-    animation: shake 0.3s;
     cursor: pointer;
 }
 
 .tooltip-msg {
+    @include fadeIn-animation(0.3s);
     color: red;
     background-color: white;
     position: absolute;
     left: 10rem;
     bottom: 5.35rem;
-    animation: fadeIn 0.3s ease-in-out;
 }
