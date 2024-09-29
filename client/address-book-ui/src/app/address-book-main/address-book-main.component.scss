@@ -1,9 +1,31 @@
+@import '../../styles.scss';
+
 .grid-container {
-    height: 100%;
-    padding: 1rem; // Adjust as needed
-    box-sizing: border-box; // Include padding in the total width/height
+    height: 100vh;
+    padding: 1.5rem;
+    box-sizing: border-box;
 }
 
 .ag-theme-alpine {
-    display: flex; // Flex to ensure it responds to container
+    display: flex;
+}
+
+.top-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 1rem;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: initial;
+}
+
+.clear-input {
+    padding: 0.25rem;
+    padding-left: 0.5rem;
+    cursor: pointer;
 }

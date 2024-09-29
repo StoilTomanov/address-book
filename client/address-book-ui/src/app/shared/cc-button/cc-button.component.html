@@ -1,1 +1,1 @@
-<button class="cc-button" [disabled]="isDisabled" (click)="onButtonClicked()">Enter</button>
+<button class="cc-button" [ngClass]="{ primary: setPrimaryStyle }" [disabled]="isDisabled" (click)="onButtonClicked()">{{ value }}</button>

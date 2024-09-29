@@ -1,4 +1,28 @@
 <div class="grid-container">
-    <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-quartz" [rowData]="rows" [columnDefs]="colDefs" [pagination]="true">
+    <div class="top-header">
+        <div class="search-bar">
+            <app-cc-simple-input
+                [width]="'13rem'"
+                [value]="searchValue"
+                [placeholder]="'Quick Search'"
+                (onInput)="onSearchTextBoxChanged($event)"
+            ></app-cc-simple-input>
+            <div class="clear-input" (click)="onClearSearchInputClicked()">
+                <span *ngIf="searchValue">&#10005;</span>
+            </div>
+        </div>
+        <div class="add-row-button">
+            <app-cc-button [setPrimaryStyle]="true" [value]="'Add Row'"></app-cc-button>
+        </div>
+    </div>
+    <ag-grid-angular
+        style="width: 100%; height: 94%"
+        class="ag-theme-quartz"
+        [rowData]="rows"
+        [columnDefs]="colDefs"
+        [pagination]="true"
+        [paginationPageSize]="20"
+        (gridReady)="onGridReady($event)"
+    >
     </ag-grid-angular>
 </div>

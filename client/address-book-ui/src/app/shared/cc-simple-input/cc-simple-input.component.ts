@@ -8,7 +8,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class CcSimpleInputComponent {
     @Output() onInput: EventEmitter<string> = new EventEmitter<string>();
     @Input() hasError: boolean = false;
+    @Input() placeholder: string = '';
     @Input() errorMessage: string = '';
+    @Input() width: string = '10rem';
+    @Input() value: string = '';
 
     showTooltipElement: boolean = false;
 
