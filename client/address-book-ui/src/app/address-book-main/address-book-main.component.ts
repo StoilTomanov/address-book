@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from 'ag-grid-community';
 import { AddressRow } from '../models/address-book';
 
 @Component({
@@ -10,6 +10,7 @@ import { AddressRow } from '../models/address-book';
 export class AddressBookMainComponent {
     gridApi: GridApi | undefined;
     searchValue: string = '';
+    showRowDetails: boolean = false;
     rows: AddressRow[] = [
         { id: 123, name: 'John', phone: '+359 885 745 458', email: 'john.doe@email.com', expanded: false },
         { id: 456, name: 'Sara', phone: '+359 456 123 753', email: 'sara.doe@email.com', expanded: true },
@@ -18,9 +19,9 @@ export class AddressBookMainComponent {
         { id: 362, name: 'Eliza', phone: '+359 456 123 624', email: 'eliza.doe@email.com', expanded: true },
     ];
     colDefs: ColDef<AddressRow>[] = [
-        { headerName: 'Name', field: 'name', flex: 1 },
-        { headerName: 'Phone', field: 'phone', flex: 1 },
-        { headerName: 'Email', field: 'email', flex: 1 },
+        { headerName: 'Name', field: 'name', flex: 1, cellStyle: { cursor: 'pointer' } },
+        { headerName: 'Phone', field: 'phone', flex: 1, cellStyle: { cursor: 'pointer' } },
+        { headerName: 'Email', field: 'email', flex: 1, cellStyle: { cursor: 'pointer' } },
     ];
 
     onSearchTextBoxChanged(searchValue: string) {
@@ -35,5 +36,10 @@ export class AddressBookMainComponent {
 
     onGridReady(params: GridReadyEvent) {
         this.gridApi = params.api;
+    }
+
+    onRowClicked(row: RowClickedEvent<AddressRow, any>): void {
+        this.showRowDetails = true;
+        console.log(row.data);
     }
 }

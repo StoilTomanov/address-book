@@ -1,0 +1,27 @@
+@import '../../../mixins.scss';
+
+.modal-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+}
+
+.address-row-details-container {
+    @include fadeIn-animation(0.3s);
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem #a6d1ff;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.01rem solid rgb(148, 148, 148);
+    border-radius: 0.5rem;
+    z-index: 999;
+    height: 80%;
+    width: 80%;
+    background-color: #ffffff;
+}

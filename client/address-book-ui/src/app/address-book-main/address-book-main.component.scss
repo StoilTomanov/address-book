@@ -3,7 +3,12 @@
 .grid-container {
     height: 100vh;
     padding: 1.5rem;
+    backdrop-filter: blur(0px);
     box-sizing: border-box;
+}
+
+.blur {
+    filter: blur(2px);
 }
 
 .ag-theme-alpine {

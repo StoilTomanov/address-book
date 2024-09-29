@@ -7,9 +7,10 @@ import { EnterAddressBookComponent } from './enter-address-book/enter-address-bo
 import { SharedModule } from './shared/shared.module';
 import { AddressBookMainComponent } from './address-book-main/address-book-main.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { ViewGridAddressRowComponent } from './address-book-main/view-grid-address-row/view-grid-address-row.component';
 
 @NgModule({
-    declarations: [AppComponent, EnterAddressBookComponent, AddressBookMainComponent],
+    declarations: [AppComponent, EnterAddressBookComponent, AddressBookMainComponent, ViewGridAddressRowComponent],
     imports: [BrowserModule, AppRoutingModule, SharedModule, AgGridModule],
     providers: [],
     bootstrap: [AppComponent],

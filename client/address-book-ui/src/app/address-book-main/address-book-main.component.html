@@ -1,4 +1,4 @@
-<div class="grid-container">
+<div class="grid-container" [ngClass]="{ blur: showRowDetails }">
     <div class="top-header">
         <div class="search-bar">
             <app-cc-simple-input
@@ -22,7 +22,10 @@
         [columnDefs]="colDefs"
         [pagination]="true"
         [paginationPageSize]="20"
+        (rowClicked)="onRowClicked($event)"
         (gridReady)="onGridReady($event)"
     >
     </ag-grid-angular>
 </div>
+
+<app-view-grid-address-row *ngIf="showRowDetails"></app-view-grid-address-row>
