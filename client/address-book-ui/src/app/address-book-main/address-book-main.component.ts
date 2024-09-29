@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ColDef } from 'ag-grid-community';
 import { AddressRow } from '../models/address-book';
 
 @Component({
@@ -11,14 +12,9 @@ export class AddressBookMainComponent {
         { id: 123, name: 'John', phone: '+359 885 745 458', email: 'john.doe@email.com', expanded: false },
         { id: 456, name: 'Sara', phone: '+359 456 123 753', email: 'sara.doe@email.com', expanded: true },
     ];
-
-    toggleRowDetails(row: AddressRow): void {
-        this.rows.map((rowInRows) => {
-            if (row.id === rowInRows.id) {
-                row.expanded = !row.expanded;
-            } else {
-                rowInRows.expanded = false;
-            }
-        });
-    }
+    colDefs: ColDef<AddressRow>[] = [
+        { headerName: 'Name', field: 'name', flex: 1 },
+        { headerName: 'Phone', field: 'phone', flex: 1 },
+        { headerName: 'Email', field: 'email', flex: 1 },
+    ];
 }

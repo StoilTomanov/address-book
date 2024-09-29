@@ -1,61 +1,9 @@
-@import '../../styles.scss';
-
-.table {
-    border-collapse: collapse;
-    padding: 0.5rem;
+.grid-container {
+    height: 100%;
+    padding: 1rem; // Adjust as needed
+    box-sizing: border-box; // Include padding in the total width/height
 }
 
-.row {
-    display: flex;
-    align-items: center;
-    padding: 0.8rem;
-    border-bottom: 0.02rem solid #ccc;
-    transition: background-color 0.2s;
-}
-
-.row.header {
-    font-weight: bold;
-    background-color: $primary-color;
-    color: white;
-}
-
-.cell {
-    flex: 1;
-    padding: 0.5rem;
-}
-
-.dropdown-icon {
-    margin-left: 2rem;
-    transition: transform 0.2s;
-}
-
-.row:not(.header):hover {
-    background-color: $row-hover-color;
-}
-
-.row:not(.header) {
-    cursor: pointer;
-}
-
-.row.expanded {
-    background-color: #d4edda;
-}
-
-//  details
-
-.details {
-    padding: 1rem;
-    background-color: $row-color;
-    border-left: 0.1rem solid $primary-color;
-    border-bottom: 0.1rem solid $primary-color;
-    border-bottom-left-radius: 0.5rem;
-}
-
-.detail-item {
-    margin: 0.2rem 0;
-    color: #373737;
-}
-
-.detail-item strong {
-    color: #000000;
+.ag-theme-alpine {
+    display: flex; // Flex to ensure it responds to container
 }
