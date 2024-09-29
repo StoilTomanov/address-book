@@ -1,0 +1,23 @@
+<div class="modal-wrapper">
+    <div class="address-row-details-container">
+        <h2>Edit Row</h2>
+        <ag-grid-angular
+            [loading]="isLoading"
+            style="width: 100%; height: 65vh"
+            class="ag-theme-quartz"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [editType]="editType"
+            [stopEditingWhenCellsLoseFocus]="true"
+            (gridReady)="onGridReady($event)"
+            (cellValueChanged)="onCellValueChanged($event)"
+        >
+        </ag-grid-angular>
+
+        <div class="action-buttons">
+            <app-cc-button [value]="'Save'" (onClicked)="saveRow()"></app-cc-button>
+            <app-cc-button [value]="'Cancel'" (onClicked)="closeModal()"></app-cc-button>
+            <app-cc-button [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
+        </div>
+    </div>
+</div>

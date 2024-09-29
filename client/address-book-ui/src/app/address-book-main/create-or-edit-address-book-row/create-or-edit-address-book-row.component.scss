@@ -21,7 +21,14 @@
     border: 0.01rem solid rgb(148, 148, 148);
     border-radius: 0.5rem;
     z-index: 999;
-    height: 80%;
+    height: 80vh;
     width: 80%;
     background-color: #ffffff;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    gap: 1rem;
 }

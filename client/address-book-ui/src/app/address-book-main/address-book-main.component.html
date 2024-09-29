@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="add-row-button">
-            <app-cc-button [setPrimaryStyle]="true" [value]="'Add Row'"></app-cc-button>
+            <app-cc-button [setPrimaryStyle]="true" [value]="'Add Row'" (onClicked)="onAddRowClicked()"></app-cc-button>
         </div>
     </div>
     <ag-grid-angular
@@ -28,4 +28,8 @@
     </ag-grid-angular>
 </div>
 
-<app-view-grid-address-row *ngIf="showRowDetails"></app-view-grid-address-row>
+<app-create-or-edit-address-book-row
+    *ngIf="showRowDetails"
+    [data]="selectedRow"
+    (close)="onModalClosed($event)"
+></app-create-or-edit-address-book-row>

@@ -1,5 +1,5 @@
 export interface AddressRow {
-    id: number;
+    id: string;
     name: string;
     email: string;
     phone: string;
@@ -9,4 +9,10 @@ export interface AddressRow {
     birthday?: string;
     notes?: string;
     expanded: boolean;
+}
+
+export interface EditRow {
+    field: keyof AddressRow;
+    displayableField: string;
+    value: string;
 }
