@@ -74,6 +74,8 @@ export class AddressBookMainComponent {
     onModalClosed(addressRowChangeEvent: AddressRowChangeEvent): void {
         if (addressRowChangeEvent.action === 'delete') {
             this.rows = this.rows.filter((row) => row._id != addressRowChangeEvent.row?._id);
+        } else if (addressRowChangeEvent.action === 'save' && addressRowChangeEvent.row) {
+            this.rows = this.rows.concat([addressRowChangeEvent.row]);
         }
         this.showRowDetails = false;
     }

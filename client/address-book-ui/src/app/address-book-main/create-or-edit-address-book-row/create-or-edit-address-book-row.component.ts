@@ -57,17 +57,21 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     saveRow() {
         this.isLoading = true;
         const shouldCreateRow = this.data?._id === '';
-        setTimeout(() => {
-            // only for testing
-            // this.close.emit(this.data);
-            this.isLoading = false;
-        }, 5000);
+        if (this.data) {
+            if (shouldCreateRow) {
+                this.addressBookService
+                    .createAddressBookRecord(this.data)
+                    .pipe(finalize(() => (this.isLoading = false)))
+                    .subscribe((createdRecord) => {
+                        this.close.emit({ row: createdRecord, action: 'save' });
+                    });
+            }
+        }
         //  todo: get a service to make a post request and emit when response is back
     }
 
     deleteRow() {
         this.isLoading = true;
-        console.log(this.data);
         if (this.data) {
             this.addressBookService
                 .deleteAddressBookRecord(this.data._id)
@@ -91,25 +95,25 @@ export class CreateOrEditAddressBookRow implements OnChanges {
                 this.data.name = event.data.value;
             }
             if (event.data.field == 'phone') {
-                this.data.address = event.data.value;
+                this.data.phone = event.data.value;
             }
             if (event.data.field == 'email') {
-                this.data.address = event.data.value;
+                this.data.email = event.data.value;
             }
             if (event.data.field == 'address') {
                 this.data.address = event.data.value;
             }
             if (event.data.field == 'birthday') {
-                this.data.address = event.data.value;
+                this.data.birthday = event.data.value;
             }
             if (event.data.field == 'jobRole') {
-                this.data.address = event.data.value;
+                this.data.jobRole = event.data.value;
             }
             if (event.data.field == 'linkedIn') {
-                this.data.address = event.data.value;
+                this.data.linkedIn = event.data.value;
             }
             if (event.data.field == 'notes') {
-                this.data.address = event.data.value;
+                this.data.notes = event.data.value;
             }
         }
     }
