@@ -16,16 +16,6 @@ export class AddressBookService {
     }
 
     createAddressBookRecord(newRecord: AddressRow): Observable<AddressRow> {
-        console.log({
-            name: newRecord.name,
-            email: newRecord.email,
-            phone: newRecord.phone,
-            address: newRecord.address,
-            jobRole: newRecord.jobRole,
-            linkedIn: newRecord.linkedIn,
-            birthday: newRecord.birthday,
-            notes: newRecord.notes,
-        });
         return this.http.post<AddressRow>(`${this.backendUrl}/create`, {
             name: newRecord.name,
             email: newRecord.email,
