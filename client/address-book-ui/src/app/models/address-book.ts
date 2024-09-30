@@ -1,5 +1,5 @@
 export interface AddressRow {
-    id: string;
+    _id: string;
     name: string;
     email: string;
     phone: string;
@@ -15,4 +15,9 @@ export interface EditRow {
     field: keyof AddressRow;
     displayableField: string;
     value: string;
+}
+
+export interface AddressRowChangeEvent {
+    row: AddressRow | null;
+    action: 'delete' | 'save' | 'none';
 }

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 const AddressBookDetailSchema = new mongoose.Schema({
     name: { type: String, require: true },
@@ -10,5 +10,16 @@ const AddressBookDetailSchema = new mongoose.Schema({
     birthday: { type: String, default: '' },
     notes: { type: String, default: '' },
 });
+
+export interface AddressBookDetailDocument extends Document {
+    name: string;
+    email: string;
+    phone: string;
+    address?: string;
+    jobRole?: string;
+    linkedIn?: string;
+    birthday?: string;
+    notes?: string;
+}
 
 export const AddressBookDetail = mongoose.model('AddressBookDetail', AddressBookDetailSchema);

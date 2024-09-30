@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +12,7 @@ import { CreateOrEditAddressBookRow } from './address-book-main/create-or-edit-a
 
 @NgModule({
     declarations: [AppComponent, EnterAddressBookComponent, AddressBookMainComponent, CreateOrEditAddressBookRow],
-    imports: [BrowserModule, AppRoutingModule, SharedModule, AgGridModule],
+    imports: [BrowserModule, AppRoutingModule, SharedModule, AgGridModule, HttpClientModule],
     providers: [],
     bootstrap: [AppComponent],
 })

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent, RowValueChangedEvent } from 'ag-grid-community';
-import { AddressRow, EditRow as EditAddressRow, EditRow } from 'src/app/models/address-book';
+import { finalize } from 'rxjs';
+import { AddressRow, AddressRowChangeEvent, EditRow as EditAddressRow, EditRow } from 'src/app/models/address-book';
+import { AddressBookService } from 'src/app/services/address-book.service';
 
 @Component({
     selector: 'app-create-or-edit-address-book-row',
@@ -9,7 +11,7 @@ import { AddressRow, EditRow as EditAddressRow, EditRow } from 'src/app/models/a
 })
 export class CreateOrEditAddressBookRow implements OnChanges {
     @Input() data: AddressRow | undefined;
-    @Output() close: EventEmitter<AddressRow | null> = new EventEmitter<AddressRow | null>();
+    @Output() close: EventEmitter<AddressRowChangeEvent> = new EventEmitter<AddressRowChangeEvent>();
 
     isLoading: boolean = false;
     columnDefs: ColDef[] = [
@@ -33,6 +35,8 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     rowData: EditAddressRow[] = [];
     editType: 'fullRow' | undefined = 'fullRow';
 
+    constructor(private addressBookService: AddressBookService) {}
+
     ngOnChanges(changes: SimpleChanges): void {
         this.rowData = [
             { displayableField: 'Name', field: 'name', value: this.data?.name || '' },
@@ -52,10 +56,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
 
     saveRow() {
         this.isLoading = true;
-        const shouldCreateRow = this.data?.id === '';
+        const shouldCreateRow = this.data?._id === '';
         setTimeout(() => {
             // only for testing
-            this.close.emit(this.data);
+            // this.close.emit(this.data);
             this.isLoading = false;
         }, 5000);
         //  todo: get a service to make a post request and emit when response is back
@@ -63,16 +67,19 @@ export class CreateOrEditAddressBookRow implements OnChanges {
 
     deleteRow() {
         this.isLoading = true;
-        setTimeout(() => {
-            // only for testing
-            this.close.emit(this.data);
-            this.isLoading = false;
-        }, 5000);
-        //  todo: get a service to make a post request and emit when response is back
+        console.log(this.data);
+        if (this.data) {
+            this.addressBookService
+                .deleteAddressBookRecord(this.data._id)
+                .pipe(finalize(() => (this.isLoading = false)))
+                .subscribe((deletedRecord) => {
+                    this.close.emit({ row: deletedRecord, action: 'delete' });
+                });
+        }
     }
 
     closeModal() {
-        this.close.emit(null);
+        this.close.emit({ row: null, action: 'none' });
     }
 
     onCellValueChanged(event: CellValueChangedEvent<EditRow>): void {
