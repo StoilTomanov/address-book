@@ -5,14 +5,12 @@ module.exports = function (config) {
             require('karma-jasmine'),
             require('karma-chrome-launcher'),
             require('karma-jasmine-html-reporter'),
-            require('karma-junit-reporter'),
             require('@angular-devkit/build-angular/plugins/karma'),
         ],
-        reporters: ['progress', 'kjhtml', 'junit'],
-        junitReporter: {
-            outputDir: 'test-results',
-            outputFile: 'test-results.xml',
-            useBrowserName: false,
+        reporters: ['progress', 'kjhtml', 'json'],
+        jsonReporter: {
+            stdout: false,
+            outputFile: 'test-results/results.json',
         },
     });
 };
