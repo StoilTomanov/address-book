@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # Ignore test results
-/test-results
+test-results.json
