@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         run: |
           cd client/address-book-ui
-          npm test -- --watch=false --browsers=ChromeHeadless || true
+          npm test -- --watch=false --browsers=ChromeHeadless
 
       - name: Upload JSON test results
         if: always()
