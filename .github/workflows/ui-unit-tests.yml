@@ -29,6 +29,15 @@ jobs:
           cd client/address-book-ui
           npm test -- --watch=false --browsers=ChromeHeadless
 
+      - name: List test results
+        run: |
+          if [ -d test-results ]; then
+            echo "Test results directory contents:"
+            ls -R test-results
+          else
+            echo "Test results directory does not exist."
+          fi
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v3
