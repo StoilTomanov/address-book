@@ -28,6 +28,19 @@ export class AddressBookService {
         });
     }
 
+    updateAddressBookRecord(updatedRecord: AddressRow, id: string): Observable<AddressRow> {
+        return this.http.put<AddressRow>(`${this.backendUrl}/update/${id}`, {
+            name: updatedRecord.name,
+            email: updatedRecord.email,
+            phone: updatedRecord.phone,
+            address: updatedRecord.address,
+            jobRole: updatedRecord.jobRole,
+            linkedIn: updatedRecord.linkedIn,
+            birthday: updatedRecord.birthday,
+            notes: updatedRecord.notes,
+        });
+    }
+
     deleteAddressBookRecord(id: string): Observable<AddressRow> {
         return this.http.delete<AddressRow>(`${this.backendUrl}/delete/${id}`);
     }

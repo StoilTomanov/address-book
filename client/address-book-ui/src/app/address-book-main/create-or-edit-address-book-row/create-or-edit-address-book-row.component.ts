@@ -55,15 +55,23 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     }
 
     saveRow() {
-        this.isLoading = true;
-        const shouldCreateRow = this.data?._id === '';
         if (this.data) {
+            this.isLoading = true;
+            const dataRowId = this.data._id;
+            const shouldCreateRow = dataRowId === '';
             if (shouldCreateRow) {
                 this.addressBookService
                     .createAddressBookRecord(this.data)
                     .pipe(finalize(() => (this.isLoading = false)))
                     .subscribe((createdRecord) => {
-                        this.close.emit({ row: createdRecord, action: 'save' });
+                        this.close.emit({ row: createdRecord, action: 'create' });
+                    });
+            } else {
+                this.addressBookService
+                    .updateAddressBookRecord(this.data, dataRowId)
+                    .pipe(finalize(() => (this.isLoading = false)))
+                    .subscribe((updatedRecord) => {
+                        this.close.emit({ row: updatedRecord, action: 'update' });
                     });
             }
         }
@@ -88,8 +96,6 @@ export class CreateOrEditAddressBookRow implements OnChanges {
 
     onCellValueChanged(event: CellValueChangedEvent<EditRow>): void {
         if (this.data) {
-            console.log(this.data);
-
             //  todo: figure out a better way of doing this
             if (event.data.field == 'name') {
                 this.data.name = event.data.value;

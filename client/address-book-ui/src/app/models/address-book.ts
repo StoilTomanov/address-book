@@ -19,5 +19,5 @@ export interface EditRow {
 
 export interface AddressRowChangeEvent {
     row: AddressRow | null;
-    action: 'delete' | 'save' | 'none';
+    action: 'delete' | 'create' | 'update' | 'none';
 }

@@ -72,11 +72,22 @@ export class AddressBookMainComponent {
     }
 
     onModalClosed(addressRowChangeEvent: AddressRowChangeEvent): void {
-        if (addressRowChangeEvent.action === 'delete') {
-            this.rows = this.rows.filter((row) => row._id != addressRowChangeEvent.row?._id);
-        } else if (addressRowChangeEvent.action === 'save' && addressRowChangeEvent.row) {
-            this.rows = this.rows.concat([addressRowChangeEvent.row]);
-        }
         this.showRowDetails = false;
+        if (!addressRowChangeEvent.row) {
+            return;
+        }
+        switch (addressRowChangeEvent.action) {
+            case 'create':
+                this.rows = this.rows.concat([addressRowChangeEvent.row]);
+                break;
+            case 'update':
+                this.rows.map((row) => (row._id == addressRowChangeEvent.row?._id ? addressRowChangeEvent.row : row));
+                break;
+            case 'delete':
+                this.rows = this.rows.filter((row) => row._id != addressRowChangeEvent.row?._id);
+                break;
+            default:
+                break;
+        }
     }
 }
