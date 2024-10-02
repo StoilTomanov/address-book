@@ -29,6 +29,9 @@ jobs:
           cd client/address-book-ui
           npm test -- --watch=false --browsers=ChromeHeadless
 
+      - name: List test results
+        run: ls -R test-results
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v3
