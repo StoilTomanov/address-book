@@ -60,22 +60,30 @@ export class CreateOrEditAddressBookRow implements OnChanges {
             const dataRowId = this.data._id;
             const shouldCreateRow = dataRowId === '';
             if (shouldCreateRow) {
-                this.addressBookService
-                    .createAddressBookRecord(this.data)
-                    .pipe(finalize(() => (this.isLoading = false)))
-                    .subscribe((createdRecord) => {
-                        this.close.emit({ row: createdRecord, action: 'create' });
-                    });
+                this.createAddressBookRecord(this.data);
             } else {
-                this.addressBookService
-                    .updateAddressBookRecord(this.data, dataRowId)
-                    .pipe(finalize(() => (this.isLoading = false)))
-                    .subscribe((updatedRecord) => {
-                        this.close.emit({ row: updatedRecord, action: 'update' });
-                    });
+                this.updateAddressBookRecord(this.data, dataRowId);
             }
         }
         //  todo: get a service to make a post request and emit when response is back
+    }
+
+    private createAddressBookRecord(rowData: AddressRow): void {
+        this.addressBookService
+            .createAddressBookRecord(rowData)
+            .pipe(finalize(() => (this.isLoading = false)))
+            .subscribe((createdRecord) => {
+                this.close.emit({ row: createdRecord, action: 'create' });
+            });
+    }
+
+    private updateAddressBookRecord(rowData: AddressRow, dataRowId: string): void {
+        this.addressBookService
+            .updateAddressBookRecord(rowData, dataRowId)
+            .pipe(finalize(() => (this.isLoading = false)))
+            .subscribe((updatedRecord) => {
+                this.close.emit({ row: updatedRecord, action: 'update' });
+            });
     }
 
     deleteRow() {
