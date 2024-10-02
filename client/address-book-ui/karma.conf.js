@@ -11,7 +11,7 @@ module.exports = function (config) {
         reporters: ['progress', 'kjhtml', 'json'],
         jsonReporter: {
             stdout: false,
-            outputFile: 'test-results/results.json',
+            outputFile: 'client/address-book-ui/test-results/results.json',
         },
     });
 };
