@@ -29,6 +29,10 @@ jobs:
           cd client/address-book-ui
           npm test -- --watch=false --browsers=ChromeHeadless
 
+      - name: Create test-results directory
+        run: |
+          mkdir -p client/address-book-ui/test-results
+
       - name: Upload JSON test results
         if: always()
         uses: actions/upload-artifact@v3
