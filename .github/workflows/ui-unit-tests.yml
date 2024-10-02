@@ -26,5 +26,5 @@ jobs:
 
       - name: Run tests
         run: |
-          cd client
+          cd client/address-book-ui
           npm test
