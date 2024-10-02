@@ -11,7 +11,7 @@ module.exports = function (config) {
         reporters: ['progress', 'kjhtml', 'json'],
         jsonReporter: {
             stdout: false,
-            outputFile: 'test-results.json',
+            outputFile: 'test-results/test-results.json',
         },
         browsers: ['ChromeHeadless'],
         singleRun: true,
