@@ -5,9 +5,11 @@ $dsiabled-color: #efefef;
 $row-color: #dcf5ff47;
 $dark-grey: #363636;
 $row-hover-color: #e7f3ff;
+$ag-theme-quartz-dark: color-mix(in srgb, #fff, #182230 97%);
 
 html,
 body {
     height: 100%;
     margin: 0;
+    background-color: $ag-theme-quartz-dark;
 }

@@ -1,6 +1,6 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose';
 
-const AddressBookDetailSchema = new mongoose.Schema({
+const AddressBookDetailSchema: Schema<AddressBookDetailDocument> = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },

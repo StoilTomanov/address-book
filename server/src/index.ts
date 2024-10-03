@@ -6,7 +6,7 @@ import { serverInfo, ServerInfo } from './serverInfo';
 import { cors } from './middlewares/cors';
 import { addressBookRecordsController } from './controllers/address-book-records';
 
-async function init() {
+async function init(): Promise<void> {
     const dbUrl: string = 'mongodb://localhost:27017/address-book';
     const serverInfoDetails: ServerInfo = serverInfo();
     const app: Application = express();

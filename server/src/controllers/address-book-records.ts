@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { getAll, deleteRecord, createRecord, updateRecord } from '../services/address-book-records';
+import { AddressBookDetailDocument } from '../models/address-book-details';
 
 export const addressBookRecordsController = Router();
 
@@ -8,9 +9,9 @@ addressBookRecordsController.post('/create', createAddressBookRecord);
 addressBookRecordsController.put('/update/:id', updateAddressBookRecord);
 addressBookRecordsController.delete('/delete/:id', deleteAddressBookRecord);
 
-async function getAddressBookRecords(req: Request, res: Response) {
+async function getAddressBookRecords(req: Request, res: Response): Promise<void> {
     try {
-        const result = await getAll();
+        const result: AddressBookDetailDocument[] = await getAll();
         res.status(200).json(result);
     } catch (e) {
         // todo: see what type of errors mongoose throw
@@ -19,9 +20,9 @@ async function getAddressBookRecords(req: Request, res: Response) {
     }
 }
 
-async function deleteAddressBookRecord(req: Request, res: Response) {
+async function deleteAddressBookRecord(req: Request, res: Response): Promise<void> {
     try {
-        const result = await deleteRecord(req.params.id);
+        const result: AddressBookDetailDocument | null = await deleteRecord(req.params.id);
         res.status(200).json(result);
     } catch (e) {
         // todo: see what type of errors mongoose throw
@@ -30,7 +31,7 @@ async function deleteAddressBookRecord(req: Request, res: Response) {
     }
 }
 
-async function createAddressBookRecord(req: Request, res: Response) {
+async function createAddressBookRecord(req: Request, res: Response): Promise<void> {
     const newRecord: any = {
         name: req.body.name,
         email: req.body.email,
@@ -43,7 +44,7 @@ async function createAddressBookRecord(req: Request, res: Response) {
     };
 
     try {
-        const result = await createRecord(newRecord);
+        const result: AddressBookDetailDocument = await createRecord(newRecord);
         res.status(201).json(result);
     } catch (e) {
         // todo: see what type of errors mongoose throw
@@ -52,7 +53,7 @@ async function createAddressBookRecord(req: Request, res: Response) {
     }
 }
 
-async function updateAddressBookRecord(req: Request, res: Response) {
+async function updateAddressBookRecord(req: Request, res: Response): Promise<void> {
     // todo: do a preload middleware
     const recordId = req.params.id;
     const updatedRecord: any = {
@@ -67,7 +68,7 @@ async function updateAddressBookRecord(req: Request, res: Response) {
     };
 
     try {
-        const result = await updateRecord(updatedRecord, recordId);
+        const result: AddressBookDetailDocument = await updateRecord(updatedRecord, recordId);
         res.status(201).json(result);
     } catch (e) {
         // todo: see what type of errors mongoose throw

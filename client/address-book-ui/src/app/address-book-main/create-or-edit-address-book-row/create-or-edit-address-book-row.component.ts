@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CellValueChangedEvent, ColDef, GridReadyEvent, RowValueChangedEvent } from 'ag-grid-community';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { finalize } from 'rxjs';
+
 import { AddressRow, AddressRowChangeEvent, EditRow as EditAddressRow, EditRow } from 'src/app/models/address-book';
 import { AddressBookService } from 'src/app/services/address-book.service';
 
@@ -29,11 +30,13 @@ export class CreateOrEditAddressBookRow implements OnChanges {
             flex: 1,
             sortable: false,
             singleClickEdit: true,
+            cellStyle: { cursor: 'pointer' },
             tooltipValueGetter: () => 'Click to start editing',
         },
     ];
     rowData: EditAddressRow[] = [];
     editType: 'fullRow' | undefined = 'fullRow';
+    rowAction: 'Add Row' | 'Edit Row' | undefined;
 
     constructor(private addressBookService: AddressBookService) {}
 
@@ -51,10 +54,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     }
 
     onGridReady(params: GridReadyEvent): void {
-        console.log('grid is ready');
+        this.rowAction = this.data?._id ? 'Edit Row' : 'Add Row';
     }
 
-    saveRow() {
+    saveRow(): void {
         if (this.data) {
             this.isLoading = true;
             const dataRowId = this.data._id;
@@ -65,7 +68,6 @@ export class CreateOrEditAddressBookRow implements OnChanges {
                 this.updateAddressBookRecord(this.data, dataRowId);
             }
         }
-        //  todo: get a service to make a post request and emit when response is back
     }
 
     private createAddressBookRecord(rowData: AddressRow): void {
@@ -86,7 +88,7 @@ export class CreateOrEditAddressBookRow implements OnChanges {
             });
     }
 
-    deleteRow() {
+    deleteRow(): void {
         this.isLoading = true;
         if (this.data) {
             this.addressBookService
@@ -98,7 +100,7 @@ export class CreateOrEditAddressBookRow implements OnChanges {
         }
     }
 
-    closeModal() {
+    closeModal(): void {
         this.close.emit({ row: null, action: 'none' });
     }
 

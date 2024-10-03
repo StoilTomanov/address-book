@@ -4,7 +4,7 @@ export interface ServerInfo {
     version: string;
 }
 
-export const serverInfo = (): ServerInfo => {
+export const serverInfo: Function = (): ServerInfo => {
     return {
         serverName: 'address-book-server',
         port: 3000,

@@ -1,14 +1,23 @@
 @import '../../../mixins.scss';
+@import '../../../styles.scss';
 
 .input-field {
     border: 0.01rem solid rgb(207, 207, 207);
     border-radius: 0.3rem;
     padding: 0.5rem;
+    background-color: $ag-theme-quartz-dark;
+    color: #ffffff;
+}
+
+.input-field::placeholder {
+    color: #a3a3a3;
 }
 
 .input-field:focus {
     outline: none;
-    border: 0.01rem solid #8cc4ff;
+    border: 0.08rem solid #484848;
+    background-color: rgb(37, 54, 65);
+    box-shadow: 0.01rem 0.01rem 0.1rem 0.1rem #8cc4ff;
 }
 
 .input-field.error {
@@ -47,7 +56,7 @@
 .tooltip-msg {
     @include fadeIn-animation(0.3s);
     color: red;
-    background-color: white;
+    background-color: $ag-theme-quartz-dark;
     position: absolute;
     left: 10rem;
     bottom: 5.35rem;

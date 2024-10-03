@@ -1,5 +1,5 @@
 @import '../../../mixins.scss';
-
+@import '../../../styles.scss';
 .modal-wrapper {
     position: absolute;
     top: 50%;
@@ -23,7 +23,7 @@
     z-index: 999;
     height: 80vh;
     width: 80%;
-    background-color: #ffffff;
+    background-color: $ag-theme-quartz-dark;
 }
 
 .action-buttons {

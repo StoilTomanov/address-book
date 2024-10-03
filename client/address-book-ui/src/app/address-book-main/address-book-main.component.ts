@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from 'ag-grid-community';
-import { AddressRow, AddressRowChangeEvent } from '../models/address-book';
-import { AddressBookService } from '../services/address-book.service';
 import { finalize } from 'rxjs';
+
+import { AddressBookService } from '../services/address-book.service';
+import { AddressRow, AddressRowChangeEvent } from '../models/address-book';
 
 @Component({
     selector: 'app-address-book-main',
@@ -39,7 +40,7 @@ export class AddressBookMainComponent {
         };
     }
 
-    onSearchTextBoxChanged(searchValue: string) {
+    onSearchTextBoxChanged(searchValue: string): void {
         this.searchValue = searchValue;
         this.gridApi?.setGridOption('quickFilterText', searchValue);
     }
@@ -49,7 +50,7 @@ export class AddressBookMainComponent {
         this.onSearchTextBoxChanged(this.searchValue);
     }
 
-    onGridReady(params: GridReadyEvent) {
+    onGridReady(params: GridReadyEvent): void {
         this.gridApi = params.api;
 
         this.isLoading = true;
