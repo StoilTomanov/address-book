@@ -1,4 +1,4 @@
-name: UI Unit Tests
+name: UI Unit Tests Coverage
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Check for coverage summary file
         run: |
-          if [ ! -f client/address-book-ui/coverage/coverage-summary.json ]; then
+          if [ ! -f client/address-book-ui/coverage/address-book-ui/coverage-summary.json ]; then
             echo "Coverage summary file not found!"
             exit 1
           fi
