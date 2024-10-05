@@ -78,6 +78,8 @@ jobs:
             if (( $(echo "$current_coverage < $previous_coverage" | bc -l) )); then
               echo "Coverage decreased! Current: $current_coverage, Previous: $previous_coverage"
               exit 1
+            elif (( $(echo "$current_coverage == $previous_coverage" | bc -l) )); then
+              echo "Coverage is unchanged. Current: $current_coverage, Previous: $previous_coverage"
             else
               echo "Coverage is acceptable. Current: $current_coverage, Previous: $previous_coverage"
             fi
