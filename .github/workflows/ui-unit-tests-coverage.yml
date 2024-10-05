@@ -24,42 +24,51 @@ jobs:
           cd client/address-book-ui
           npm install
 
-      - name: Run tests with code coverage
+      - name: Run tests with coverage for the previous commit
+        run: |
+          git checkout HEAD^  # Checkout the previous commit
+          cd client/address-book-ui
+          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+          git checkout -  # Return to the latest commit
+
+      - name: Check for coverage summary file from previous commit
+        run: |
+          if [ ! -f client/address-book-ui/coverage/address-book-ui/coverage-summary.json ]; then
+            echo "Coverage summary file not found for previous commit!"
+            exit 1
+          fi
+
+      - name: Extract previous coverage percentage
+        id: extract-previous-coverage
+        run: |
+          coverage_file="client/address-book-ui/coverage/address-book-ui/coverage-summary.json"
+          previous_coverage=$(jq '.total.lines.pct' $coverage_file)
+          echo "Previous Coverage: $previous_coverage"
+          echo "previous_coverage=$previous_coverage" >> $GITHUB_ENV
+
+      - name: Run tests with coverage for the current commit
         run: |
           cd client/address-book-ui
           npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
-      - name: Check for coverage summary file
+      - name: Check for coverage summary file for current commit
         run: |
           if [ ! -f client/address-book-ui/coverage/address-book-ui/coverage-summary.json ]; then
-            echo "Coverage summary file not found!"
+            echo "Coverage summary file not found for current commit!"
             exit 1
           fi
 
-      - name: Extract coverage percentage
-        id: extract-coverage
+      - name: Extract current coverage percentage
+        id: extract-current-coverage
         run: |
           coverage_file="client/address-book-ui/coverage/address-book-ui/coverage-summary.json"
           current_coverage=$(jq '.total.lines.pct' $coverage_file)
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
 
-      - name: Download previous coverage
-        id: download-previous-coverage
+      - name: Compare coverage
         run: |
-          if [ -f previous-coverage.txt ]; then
-            echo "previous_coverage_exists=true" >> $GITHUB_ENV
-          else
-            echo "previous_coverage_exists=false" >> $GITHUB_ENV
-          fi
-
-      - name: Check for previous coverage
-        id: check-coverage
-        run: |
-          # Download previous coverage if it exists
-          if [ -f previous-coverage.txt ]; then
-            echo "Previous coverage file exists."
-            previous_coverage=$(cat previous-coverage.txt | xargs)
+          if [[ -n "$previous_coverage" ]]; then
             echo "Previous Coverage: $previous_coverage"
             echo "Current Coverage: $current_coverage"
 
@@ -71,30 +80,5 @@ jobs:
               echo "Coverage is acceptable. Current: $current_coverage, Previous: $previous_coverage"
             fi
           else
-            echo "No previous coverage found. This is the first run."
+            echo "No previous coverage data available."
           fi
-
-      - name: Upload JSON test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: test-results/test-results.json
-
-      - name: Upload code coverage
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: client/address-book-ui/coverage/
-
-      - name: Save current coverage for next build
-        run: |
-          echo "$current_coverage" > previous-coverage.txt
-
-      - name: Upload previous coverage
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: previous-coverage
-          path: previous-coverage.txt
