@@ -1,0 +1,44 @@
+name: UI Unit Tests Coverage
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.17.0"
+
+      - name: Install dependencies
+        run: |
+          cd client/address-book-ui
+          npm install
+
+      - name: Run tests with code coverage
+        run: |
+          cd client/address-book-ui
+          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
+      - name: Upload JSON test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results/test-results.json
+
+      - name: Upload code coverage
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: client/address-book-ui/coverage/
