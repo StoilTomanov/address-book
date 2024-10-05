@@ -1,4 +1,4 @@
-name: UI Unit Tests Coverage
+name: UI Unit Tests
 
 on:
   push:
@@ -29,10 +29,16 @@ jobs:
           cd client/address-book-ui
           npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
+      - name: Check for coverage summary file
+        run: |
+          if [ ! -f client/address-book-ui/coverage/coverage-summary.json ]; then
+            echo "Coverage summary file not found!"
+            exit 1
+          fi
+
       - name: Extract coverage percentage
         id: extract-coverage
         run: |
-          # Adjust the path if necessary
           coverage_file="client/address-book-ui/coverage/coverage-summary.json"
           current_coverage=$(jq '.total.lines.pct' $coverage_file)
           echo "Current Coverage: $current_coverage"

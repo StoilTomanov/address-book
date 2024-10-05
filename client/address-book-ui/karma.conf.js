@@ -14,7 +14,7 @@ module.exports = function (config) {
         coverageReporter: {
             dir: require('path').join(__dirname, './coverage/address-book-ui'),
             subdir: '.',
-            reporters: [{ type: 'html' }, { type: 'text-summary' }],
+            reporters: [{ type: 'html' }, { type: 'text-summary' }, { type: 'json-summary' }],
         },
         browsers: ['Chrome'],
         singleRun: false,
