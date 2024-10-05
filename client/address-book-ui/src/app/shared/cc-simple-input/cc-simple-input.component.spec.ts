@@ -1,8 +1,8 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { CcSimpleInputComponent } from './cc-simple-input.component';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 describe('CcInputComponent', () => {
     let component: CcSimpleInputComponent;
