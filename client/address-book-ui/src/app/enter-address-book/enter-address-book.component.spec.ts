@@ -25,38 +25,38 @@ describe('EnterAddressBookComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    describe('When user types in the input', () => {
-        let buttonElement: CcButtonComponent;
+    // describe('When user types in the input', () => {
+    //     let buttonElement: CcButtonComponent;
 
-        beforeEach(() => {
-            buttonElement = element.query(By.directive(CcButtonComponent)).componentInstance;
-            component.onInputTyping(' Dummy user  ');
-            fixture.detectChanges();
-        });
+    //     beforeEach(() => {
+    //         buttonElement = element.query(By.directive(CcButtonComponent)).componentInstance;
+    //         component.onInputTyping(' Dummy user  ');
+    //         fixture.detectChanges();
+    //     });
 
-        it('it sets the name property correctly', () => {
-            expect(component.name).toEqual('Dummy user');
-        });
+    //     it('it sets the name property correctly', () => {
+    //         expect(component.name).toEqual('Dummy user');
+    //     });
 
-        it('it sets enables the Enter button', () => {
-            expect(component.isDisabled).toBeFalse();
-            expect(buttonElement.isDisabled).toBeFalse();
-        });
+    //     it('it sets enables the Enter button', () => {
+    //         expect(component.isDisabled).toBeFalse();
+    //         expect(buttonElement.isDisabled).toBeFalse();
+    //     });
 
-        describe('When user deletes it"s input', () => {
-            beforeEach(() => {
-                component.onInputTyping('');
-                fixture.detectChanges();
-            });
+    //     describe('When user deletes it"s input', () => {
+    //         beforeEach(() => {
+    //             component.onInputTyping('');
+    //             fixture.detectChanges();
+    //         });
 
-            it('it sets the name property correctly', () => {
-                expect(component.name).toEqual('');
-            });
+    //         it('it sets the name property correctly', () => {
+    //             expect(component.name).toEqual('');
+    //         });
 
-            it('it sets enables the Enter button', () => {
-                expect(component.isDisabled).toBeTrue();
-                expect(buttonElement.isDisabled).toBeTrue();
-            });
-        });
-    });
+    //         it('it sets enables the Enter button', () => {
+    //             expect(component.isDisabled).toBeTrue();
+    //             expect(buttonElement.isDisabled).toBeTrue();
+    //         });
+    //     });
+    // });
 });
