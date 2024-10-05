@@ -39,7 +39,7 @@ jobs:
       - name: Extract coverage percentage
         id: extract-coverage
         run: |
-          coverage_file="client/address-book-ui/coverage/coverage-summary.json"
+          coverage_file="client/address-book-ui/coverage/address-book-ui/coverage-summary.json"
           current_coverage=$(jq '.total.lines.pct' $coverage_file)
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
