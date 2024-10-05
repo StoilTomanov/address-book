@@ -44,6 +44,12 @@ jobs:
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
 
+      - name: Download previous coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: previous-coverage
+          path: .
+
       - name: Check for previous coverage
         id: check-coverage
         run: |
@@ -88,22 +94,3 @@ jobs:
         with:
           name: previous-coverage
           path: previous-coverage.txt
-
-  restore-coverage:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Download previous coverage
-        uses: actions/download-artifact@v3
-        with:
-          name: previous-coverage
-          path: .
-
-      - name: Display previous coverage
-        run: |
-          if [[ -f previous-coverage.txt ]]; then
-            previous_coverage=$(cat previous-coverage.txt | xargs)
-            echo "Restored Previous Coverage: $previous_coverage"
-          else
-            echo "No previous coverage found."
-          fi
