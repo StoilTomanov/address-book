@@ -1,4 +1,4 @@
-name: UI Unit Tests Coverage
+name: UI Unit Tests
 
 on:
   push:
@@ -29,6 +29,27 @@ jobs:
           cd client/address-book-ui
           npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
 
+      - name: Extract coverage percentage
+        id: extract-coverage
+        run: |
+          # Adjust the path if necessary
+          coverage_file="client/address-book-ui/coverage/coverage-summary.json"
+          current_coverage=$(jq '.total.lines.pct' $coverage_file)
+          echo "Current Coverage: $current_coverage"
+          echo "current_coverage=$current_coverage" >> $GITHUB_ENV
+
+      - name: Check for previous coverage
+        id: check-coverage
+        run: |
+          if [[ -f previous-coverage.txt ]]; then
+            previous_coverage=$(cat previous-coverage.txt)
+            echo "Previous Coverage: $previous_coverage"
+            if (( $(echo "$current_coverage < $previous_coverage" | bc -l) )); then
+              echo "Coverage decreased! Current: $current_coverage, Previous: $previous_coverage"
+              exit 1
+            fi
+          fi
+
       - name: Upload JSON test results
         if: always()
         uses: actions/upload-artifact@v3
@@ -42,3 +63,8 @@ jobs:
         with:
           name: coverage
           path: client/address-book-ui/coverage/
+
+      - name: Save current coverage for next build
+        run: |
+          echo "$current_coverage" > previous-coverage.txt
+        if: success()
