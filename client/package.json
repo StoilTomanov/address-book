@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "karma-jasmine-html-reporter": "^2.1.0",
-    "karma-junit-reporter": "^2.0.1"
-  }
-}
