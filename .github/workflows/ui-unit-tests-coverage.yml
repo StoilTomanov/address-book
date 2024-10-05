@@ -81,3 +81,29 @@ jobs:
       - name: Save current coverage for next build
         run: |
           echo "$current_coverage" > previous-coverage.txt
+
+      - name: Upload previous coverage
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: previous-coverage
+          path: previous-coverage.txt
+
+  restore-coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Download previous coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: previous-coverage
+          path: .
+
+      - name: Display previous coverage
+        run: |
+          if [[ -f previous-coverage.txt ]]; then
+            previous_coverage=$(cat previous-coverage.txt | xargs)
+            echo "Restored Previous Coverage: $previous_coverage"
+          else
+            echo "No previous coverage found."
+          fi
