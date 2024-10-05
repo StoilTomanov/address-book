@@ -25,7 +25,7 @@ describe('EnterAddressBookComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    describe('When user types in the input', () => {
+    // describe('When user types in the input', () => {
     //     let buttonElement: CcButtonComponent;
 
     //     beforeEach(() => {
