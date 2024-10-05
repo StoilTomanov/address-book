@@ -50,10 +50,17 @@ jobs:
           if [[ -f previous-coverage.txt ]]; then
             previous_coverage=$(cat previous-coverage.txt)
             echo "Previous Coverage: $previous_coverage"
+            echo "Current Coverage: $current_coverage"
+
+            # Check if the values are being compared correctly
             if (( $(echo "$current_coverage < $previous_coverage" | bc -l) )); then
               echo "Coverage decreased! Current: $current_coverage, Previous: $previous_coverage"
               exit 1
+            else
+              echo "Coverage is acceptable. Current: $current_coverage, Previous: $previous_coverage"
             fi
+          else
+            echo "No previous coverage found. This is the first run."
           fi
 
       - name: Upload JSON test results
