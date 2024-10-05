@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { finalize } from 'rxjs';
-
-import { AddressRow, AddressRowChangeEvent, EditRow as EditAddressRow, EditRow } from 'src/app/models/address-book';
+import { AddressRow, AddressRowChangeEvent, EditRow } from 'src/app/models/address-book';
 import { AddressBookService } from 'src/app/services/address-book.service';
 
 @Component({
@@ -34,13 +33,13 @@ export class CreateOrEditAddressBookRow implements OnChanges {
             tooltipValueGetter: () => 'Click to start editing',
         },
     ];
-    rowData: EditAddressRow[] = [];
+    rowData: EditRow[] = [];
     editType: 'fullRow' | undefined = 'fullRow';
     rowAction: 'Add Row' | 'Edit Row' | undefined;
 
     constructor(private addressBookService: AddressBookService) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(_changes: SimpleChanges): void {
         this.rowData = [
             { displayableField: 'Name', field: 'name', value: this.data?.name || '' },
             { displayableField: 'Email', field: 'email', value: this.data?.email || '' },
@@ -53,7 +52,7 @@ export class CreateOrEditAddressBookRow implements OnChanges {
         ];
     }
 
-    onGridReady(params: GridReadyEvent): void {
+    onGridReady(_params: GridReadyEvent): void {
         this.rowAction = this.data?._id ? 'Edit Row' : 'Add Row';
     }
 
@@ -107,28 +106,28 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     onCellValueChanged(event: CellValueChangedEvent<EditRow>): void {
         if (this.data) {
             //  todo: figure out a better way of doing this
-            if (event.data.field == 'name') {
+            if (event.data.field === 'name') {
                 this.data.name = event.data.value;
             }
-            if (event.data.field == 'phone') {
+            if (event.data.field === 'phone') {
                 this.data.phone = event.data.value;
             }
-            if (event.data.field == 'email') {
+            if (event.data.field === 'email') {
                 this.data.email = event.data.value;
             }
-            if (event.data.field == 'address') {
+            if (event.data.field === 'address') {
                 this.data.address = event.data.value;
             }
-            if (event.data.field == 'birthday') {
+            if (event.data.field === 'birthday') {
                 this.data.birthday = event.data.value;
             }
-            if (event.data.field == 'jobRole') {
+            if (event.data.field === 'jobRole') {
                 this.data.jobRole = event.data.value;
             }
-            if (event.data.field == 'linkedIn') {
+            if (event.data.field === 'linkedIn') {
                 this.data.linkedIn = event.data.value;
             }
-            if (event.data.field == 'notes') {
+            if (event.data.field === 'notes') {
                 this.data.notes = event.data.value;
             }
         }

@@ -1,9 +1,9 @@
-import globals from 'globals';
 import pluginJs from '@eslint/js';
-import tseslint from 'typescript-eslint';
 import eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import eslintPluginPromise from 'eslint-plugin-promise';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default [
     { files: ['**/*.{js,mjs,cjs,ts}'] },
@@ -17,14 +17,17 @@ export default [
             promise: eslintPluginPromise,
         },
         rules: {
-            '@typescript-eslint/no-unused-vars': 'warn',
             'no-console': 'warn',
             '@typescript-eslint/explicit-function-return-type': ['warn', { allowExpressions: true }],
             'import/order': [
                 'warn',
                 {
-                    groups: [['external', 'builtin'], 'internal', 'parent', 'sibling', 'index'],
+                    groups: [
+                        ['external', 'builtin'],
+                        ['internal', 'parent', 'sibling', 'index'],
+                    ],
                     'newlines-between': 'always',
+                    alphabetize: { order: 'asc', caseInsensitive: true },
                 },
             ],
             eqeqeq: ['error', 'always'],

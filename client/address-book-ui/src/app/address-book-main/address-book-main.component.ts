@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from 'ag-grid-community';
 import { finalize } from 'rxjs';
 
-import { AddressBookService } from '../services/address-book.service';
 import { AddressRow, AddressRowChangeEvent } from '../models/address-book';
+import { AddressBookService } from '../services/address-book.service';
 
 @Component({
     selector: 'app-address-book-main',
@@ -62,7 +62,7 @@ export class AddressBookMainComponent {
             });
     }
 
-    onRowClicked(row: RowClickedEvent<AddressRow, any>): void {
+    onRowClicked(row: RowClickedEvent<AddressRow>): void {
         this.selectedRow = row.data;
         this.showRowDetails = true;
     }
@@ -82,10 +82,10 @@ export class AddressBookMainComponent {
                 this.rows = this.rows.concat([addressRowChangeEvent.row]);
                 break;
             case 'update':
-                this.rows.map((row) => (row._id == addressRowChangeEvent.row?._id ? addressRowChangeEvent.row : row));
+                this.rows.map((row) => (row._id === addressRowChangeEvent.row?._id ? addressRowChangeEvent.row : row));
                 break;
             case 'delete':
-                this.rows = this.rows.filter((row) => row._id != addressRowChangeEvent.row?._id);
+                this.rows = this.rows.filter((row) => row._id !== addressRowChangeEvent.row?._id);
                 break;
             default:
                 break;

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 module.exports = {
     parser: '@typescript-eslint/parser', // Specifies the ESLint parser
     extends: [
@@ -9,10 +11,14 @@ module.exports = {
     plugins: ['@typescript-eslint', 'import'],
     rules: {
         'import/order': [
-            'error',
+            'warn',
             {
-                groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                groups: [
+                    ['external', 'builtin'],
+                    ['internal', 'parent', 'sibling', 'index'],
+                ],
                 'newlines-between': 'always',
+                alphabetize: { order: 'asc', caseInsensitive: true },
             },
         ],
         // Add any other custom rules here
