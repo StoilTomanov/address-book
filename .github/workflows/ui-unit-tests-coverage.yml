@@ -44,26 +44,21 @@ jobs:
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
 
-      - name: Try to Download previous coverage
+      - name: Download previous coverage
         id: download-previous-coverage
         run: |
-          if ! actions/download-artifact@v3 --name previous-coverage --path .; then
-            echo "No previous coverage found; this is the first run."
-          fi
-
-      - name: Check if previous coverage file exists
-        id: check-coverage
-        run: |
-          if [[ -f previous-coverage.txt ]]; then
+          if [ -f previous-coverage.txt ]; then
             echo "previous_coverage_exists=true" >> $GITHUB_ENV
           else
             echo "previous_coverage_exists=false" >> $GITHUB_ENV
           fi
 
-      - name: Compare coverage
-        id: compare-coverage
+      - name: Check for previous coverage
+        id: check-coverage
         run: |
-          if [[ "$previous_coverage_exists" == "true" ]]; then
+          # Download previous coverage if it exists
+          if [ -f previous-coverage.txt ]; then
+            echo "Previous coverage file exists."
             previous_coverage=$(cat previous-coverage.txt | xargs)
             echo "Previous Coverage: $previous_coverage"
             echo "Current Coverage: $current_coverage"
@@ -98,7 +93,7 @@ jobs:
           echo "$current_coverage" > previous-coverage.txt
 
       - name: Upload previous coverage
-        if: always() && steps.check-coverage.outputs.previous_coverage_exists == 'true'
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: previous-coverage
