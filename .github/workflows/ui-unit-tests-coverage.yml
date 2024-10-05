@@ -47,12 +47,13 @@ jobs:
       - name: Check for previous coverage
         id: check-coverage
         run: |
+          # Check if previous coverage exists
           if [[ -f previous-coverage.txt ]]; then
-            previous_coverage=$(cat previous-coverage.txt)
+            previous_coverage=$(cat previous-coverage.txt | xargs)
             echo "Previous Coverage: $previous_coverage"
             echo "Current Coverage: $current_coverage"
 
-            # Check if the values are being compared correctly
+            # Compare current and previous coverage
             if (( $(echo "$current_coverage < $previous_coverage" | bc -l) )); then
               echo "Coverage decreased! Current: $current_coverage, Previous: $previous_coverage"
               exit 1
@@ -80,4 +81,3 @@ jobs:
       - name: Save current coverage for next build
         run: |
           echo "$current_coverage" > previous-coverage.txt
-        if: success()
