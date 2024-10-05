@@ -1,4 +1,4 @@
-name: UI Unit Tests
+name: UI Unit Tests Coverage
 
 on:
   push:
