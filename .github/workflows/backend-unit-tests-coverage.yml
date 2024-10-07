@@ -63,7 +63,7 @@ jobs:
       - name: Extract current coverage percentage
         id: extract-current-coverage
         run: |
-          coverage_file="server/coverage/coverage-summary.json"
+          coverage_file="server/coverage/coverage-final.json"
           current_coverage=$(jq '.total.lines.pct' $coverage_file)
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
