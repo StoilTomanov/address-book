@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 2 # Fetch the last two commits
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -31,11 +31,15 @@ jobs:
           git checkout HEAD^  # Checkout the previous commit
           cd server
           npm test --coverage
-          git checkout -  # Return to the latest commit
+
+      - name: Generate coverage report for previous commit
+        run: |
+          cd server/src/tests
+          node src/tests generate-coverage.js
 
       - name: Check for coverage summary file from previous commit
         run: |
-          if [ ! -f server/coverage/coverage-final.json ]; then
+          if [ ! -f server/coverage/total-coverage.json ]; then
             echo "Coverage summary file not found for previous commit!"
             exit 1
           fi
@@ -43,19 +47,28 @@ jobs:
       - name: Extract previous coverage percentage
         id: extract-previous-coverage
         run: |
-          coverage_file="server/coverage/coverage-final.json"
-          previous_coverage=$(jq '.total.lines.pct' $coverage_file)
+          coverage_file="server/coverage/total-coverage.json"
+          previous_coverage=$(jq '.lines' $coverage_file)  # Assuming the JSON has a 'lines' field
           echo "Previous Coverage: $previous_coverage"
           echo "previous_coverage=$previous_coverage" >> $GITHUB_ENV
+
+      - name: Checkout the latest commit
+        run: |
+          git checkout master
 
       - name: Run tests with coverage for the current commit
         run: |
           cd server
-          npm test --coverage
+          npm test --coverage  # Run tests with coverage
+
+      - name: Generate coverage report for current commit
+        run: |
+          cd server/src/tests
+          node src/tests generate-coverage.js
 
       - name: Check for coverage summary file for current commit
         run: |
-          if [ ! -f server/coverage/coverage-final.json ]; then
+          if [ ! -f server/coverage/total-coverage.json ]; then
             echo "Coverage summary file not found for current commit!"
             exit 1
           fi
@@ -63,8 +76,8 @@ jobs:
       - name: Extract current coverage percentage
         id: extract-current-coverage
         run: |
-          coverage_file="server/coverage/coverage-final.json"
-          current_coverage=$(jq '.total.lines.pct' $coverage_file)
+          coverage_file="server/coverage/total-coverage.json"
+          current_coverage=$(jq '.lines' $coverage_file)
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
 
