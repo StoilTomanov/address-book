@@ -29,7 +29,7 @@ jobs:
       - name: Run tests with coverage for the previous commit
         run: |
           git checkout HEAD^  # Checkout the previous commit
-          cd server/src/tests
+          cd server
           npm test --coverage
           git checkout -  # Return to the latest commit
 
@@ -50,7 +50,7 @@ jobs:
 
       - name: Run tests with coverage for the current commit
         run: |
-          cd server/src/tests
+          cd server
           npm test --coverage
 
       - name: Check for coverage summary file for current commit
