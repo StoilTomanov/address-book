@@ -1,4 +1,5 @@
 import request from 'supertest';
+console.log('test');
 
 import app from '../..';
 import * as addressBookRecordsController from '../../controllers/address-book-records';
