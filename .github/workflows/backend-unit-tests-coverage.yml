@@ -34,8 +34,8 @@ jobs:
 
       - name: Generate coverage report for previous commit
         run: |
-          cd server/src/tests
-          node src/tests generate-coverage.js
+          cd /home/runner/work/address-book/address-book/server/src/tests/src/tests
+          node generate-coverage.js
 
       - name: Check for coverage summary file from previous commit
         run: |
@@ -63,8 +63,8 @@ jobs:
 
       - name: Generate coverage report for current commit
         run: |
-          cd server/src/tests
-          node src/tests generate-coverage.js
+          cd /home/runner/work/address-book/address-book/server/src/tests/src/tests
+          node generate-coverage.js
 
       - name: Check for coverage summary file for current commit
         run: |
