@@ -1,0 +1,37 @@
+name: Backend Unit Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.17.0"
+
+      - name: Install dependencies
+        run: |
+          cd server
+          npm install
+
+      - name: Run backend tests
+        run: |
+          cd server/tests
+          npm test --coverage
+
+      - name: Upload JSON test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-test-results
+          path: server/test-results/test-results.json
