@@ -34,7 +34,7 @@ jobs:
 
       - name: Generate coverage report for previous commit
         run: |
-          cd /home/runner/work/address-book/address-book/server/src/tests/src/tests
+          cd /home/runner/work/address-book/address-book/server/src/tests
           node generate-coverage.js
 
       - name: Check for coverage summary file from previous commit
@@ -48,7 +48,7 @@ jobs:
         id: extract-previous-coverage
         run: |
           coverage_file="server/coverage/total-coverage.json"
-          previous_coverage=$(jq '.lines' $coverage_file)  # Assuming the JSON has a 'lines' field
+          previous_coverage=$(jq '.lines' $coverage_file)
           echo "Previous Coverage: $previous_coverage"
           echo "previous_coverage=$previous_coverage" >> $GITHUB_ENV
 
@@ -63,7 +63,7 @@ jobs:
 
       - name: Generate coverage report for current commit
         run: |
-          cd /home/runner/work/address-book/address-book/server/src/tests/src/tests
+          cd /home/runner/work/address-book/address-book/server/src/tests
           node generate-coverage.js
 
       - name: Check for coverage summary file for current commit
