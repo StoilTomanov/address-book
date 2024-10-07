@@ -24,7 +24,7 @@ describe('Address book records handler', () => {
             res.status(201).json(dummyAddressBookRecords[0]);
         });
         (addressBookRecordsController.updateAddressBookRecord as jest.Mock).mockImplementation((req, res) => {
-            res.status(200).json(dummyAddressBookRecords[0]);
+            res.status(200).json(dummyAddressBookRecords[1]);
         });
         (addressBookRecordsController.deleteAddressBookRecord as jest.Mock).mockImplementation((req, res) => {
             res.status(200).json(dummyAddressBookRecords[2]);

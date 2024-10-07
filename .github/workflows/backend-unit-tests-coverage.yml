@@ -1,4 +1,4 @@
-name: UI Unit Tests Coverage
+name: Backend Unit Tests Coverage
 
 on:
   push:
@@ -23,19 +23,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd client/address-book-ui
+          cd server
           npm install
 
       - name: Run tests with coverage for the previous commit
         run: |
           git checkout HEAD^  # Checkout the previous commit
-          cd client/address-book-ui
-          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+          cd server/src/tests
+          npm test --coverage
           git checkout -  # Return to the latest commit
 
       - name: Check for coverage summary file from previous commit
         run: |
-          if [ ! -f client/address-book-ui/coverage/address-book-ui/coverage-summary.json ]; then
+          if [ ! -f server/coverage/coverage-final.json ]; then
             echo "Coverage summary file not found for previous commit!"
             exit 1
           fi
@@ -43,19 +43,19 @@ jobs:
       - name: Extract previous coverage percentage
         id: extract-previous-coverage
         run: |
-          coverage_file="client/address-book-ui/coverage/address-book-ui/coverage-summary.json"
+          coverage_file="server/coverage/coverage-final.json"
           previous_coverage=$(jq '.total.lines.pct' $coverage_file)
           echo "Previous Coverage: $previous_coverage"
           echo "previous_coverage=$previous_coverage" >> $GITHUB_ENV
 
       - name: Run tests with coverage for the current commit
         run: |
-          cd client/address-book-ui
-          npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+          cd server/src/tests
+          npm test --coverage
 
       - name: Check for coverage summary file for current commit
         run: |
-          if [ ! -f client/address-book-ui/coverage/address-book-ui/coverage-summary.json ]; then
+          if [ ! -f server/coverage/coverage-final.json ]; then
             echo "Coverage summary file not found for current commit!"
             exit 1
           fi
@@ -63,7 +63,7 @@ jobs:
       - name: Extract current coverage percentage
         id: extract-current-coverage
         run: |
-          coverage_file="client/address-book-ui/coverage/address-book-ui/coverage-summary.json"
+          coverage_file="server/coverage/coverage-summary.json"
           current_coverage=$(jq '.total.lines.pct' $coverage_file)
           echo "Current Coverage: $current_coverage"
           echo "current_coverage=$current_coverage" >> $GITHUB_ENV
