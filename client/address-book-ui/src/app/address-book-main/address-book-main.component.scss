@@ -11,10 +11,6 @@
     filter: blur(2px);
 }
 
-.ag-theme-alpine {
-    display: flex;
-}
-
 .top-header {
     display: flex;
     flex-direction: row;
@@ -33,4 +29,5 @@
     padding: 0.25rem;
     padding-left: 0.5rem;
     cursor: pointer;
+    color: $primary-color;
 }

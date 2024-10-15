@@ -15,9 +15,12 @@
         </ag-grid-angular>
 
         <div class="action-buttons">
-            <app-cc-button [value]="'Save'" (onClicked)="saveRow()"></app-cc-button>
+            <app-cc-button
+                [value]="rowAction == 'Edit Row' ? 'Update' : 'Create'"
+                (onClicked)="saveRow()"
+            ></app-cc-button>
             <app-cc-button [value]="'Cancel'" (onClicked)="closeModal()"></app-cc-button>
-            <app-cc-button [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
+            <app-cc-button *ngIf="rowAction == 'Edit Row'" [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
         </div>
     </div>
 </div>

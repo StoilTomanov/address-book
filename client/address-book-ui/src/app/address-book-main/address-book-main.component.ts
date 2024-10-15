@@ -18,7 +18,7 @@ export class AddressBookMainComponent {
     selectedRow: AddressRow | undefined;
     rows: AddressRow[] = [];
     colDefs: ColDef<AddressRow>[] = [
-        { headerName: 'Name', field: 'name', flex: 1, cellStyle: { cursor: 'pointer' } },
+        { headerName: 'Name', field: 'name', flex: 1, cellStyle: { cursor: 'pointer' }, sort: 'asc' },
         { headerName: 'Phone', field: 'phone', flex: 1, cellStyle: { cursor: 'pointer' } },
         { headerName: 'Email', field: 'email', flex: 1, cellStyle: { cursor: 'pointer' } },
     ];
