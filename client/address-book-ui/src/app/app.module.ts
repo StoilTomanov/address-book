@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 
 import { AddressBookMainComponent } from './address-book-main/address-book-main.component';
@@ -13,7 +15,14 @@ import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [AppComponent, EnterAddressBookComponent, AddressBookMainComponent, CreateOrEditAddressBookRow],
-    imports: [BrowserModule, AppRoutingModule, SharedModule, AgGridModule, HttpClientModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        SharedModule, AgGridModule,
+        HttpClientModule,
+        StoreModule.forRoot({}, {}),
+        EffectsModule.forRoot([]),
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })
