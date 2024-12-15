@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+
+import { AppState } from '../models/app-state';
+import { logInAction } from '../state/actions/auth.actions';
+import { selectIsUserLoggedIn } from '../state/selectors/auth-selector';
 
 @Component({
     selector: 'app-enter-address-book',
@@ -11,7 +16,11 @@ export class EnterAddressBookComponent {
     isDisabled: boolean = true;
     hasError: boolean = false;
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private store: Store<AppState>,
+    ) {
+    }
 
     onInputTyping(inputValue: string): void {
         this.name = inputValue.trim();
@@ -21,7 +30,12 @@ export class EnterAddressBookComponent {
 
     onEnterAddressBook(): void {
         if (this.name && !!this.name.trim()) {
-            this.router.navigate(['/address-book']);
+            this.store.dispatch(logInAction());
+            this.store.pipe(select(selectIsUserLoggedIn)).subscribe((isUserLoggedIn) => {
+                if (isUserLoggedIn) {
+                    this.router.navigate(['/address-book'])
+                }
+            });
         }
     }
 }
