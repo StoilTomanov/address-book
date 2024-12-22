@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
     selector: 'app-cc-button',
@@ -7,10 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     standalone: false,
 })
 export class CcButtonComponent {
-    @Output() onClicked: EventEmitter<void> = new EventEmitter<void>();
-    @Input() isDisabled: boolean = false;
-    @Input() setPrimaryStyle: boolean = false;
-    @Input() value: string = '';
+    readonly onClicked = output<void>();
+    readonly isDisabled = input<boolean>(false);
+    readonly setPrimaryStyle = input<boolean>(false);
+    readonly value = input<string>('');
 
     onButtonClicked(): void {
         this.onClicked.emit();

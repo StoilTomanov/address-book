@@ -1,1 +1,6 @@
-<button class="cc-button" [ngClass]="{ primary: setPrimaryStyle }" [disabled]="isDisabled" (click)="onButtonClicked()">{{ value }}</button>
+<button class="cc-button"
+        [ngClass]="{ primary: setPrimaryStyle() }"
+        [disabled]="isDisabled()"
+        (click)="onButtonClicked()">
+    {{ value() }}
+</button>

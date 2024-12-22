@@ -1,20 +1,20 @@
-<div [ngClass]="{ error: hasError }" class="input-wrapper">
+<div [ngClass]="{ error: hasError() }" class="input-wrapper">
     <input
-        [ngClass]="{ error: hasError }"
-        [ngStyle]="{ width }"
+        [ngClass]="{ error: hasError() }"
+        [ngStyle]="{ width: width() }"
         type="text"
         name="name"
         class="input-field"
-        value="{{ value }}"
-        placeholder="{{ placeholder }}"
+        value="{{ value() }}"
+        placeholder="{{ placeholder() }}"
         (input)="onInputTyping($event)"
     />
-    @if (hasError) {
+    @if (hasError()) {
         <span (mouseover)="showTooltip()" (mouseleave)="hideTooltip()" class="info-icon">i</span>
     }
     @if (showTooltipElement) {
         <p class="tooltip-msg">
-            {{ errorMessage }}
+            {{ errorMessage() }}
         </p>
     }
 </div>

@@ -45,7 +45,7 @@ describe('EnterAddressBookComponent', () => {
 
         it('it sets enables the Enter button', () => {
             expect(component.isDisabled).toBeFalse();
-            expect(buttonElement.isDisabled).toBeFalse();
+            expect(buttonElement.isDisabled()).toBeFalse();
         });
 
         describe('When user deletes it"s input', () => {
@@ -60,7 +60,7 @@ describe('EnterAddressBookComponent', () => {
 
             it('it sets disables the Enter button', () => {
                 expect(component.isDisabled).toBeTrue();
-                expect(buttonElement.isDisabled).toBeTrue();
+                expect(buttonElement.isDisabled()).toBeTrue();
             });
 
             describe('and user wants to navigate to the address book', () => {
@@ -85,7 +85,7 @@ describe('EnterAddressBookComponent', () => {
 
                     it('it sets enables the Enter button', () => {
                         expect(component.isDisabled).toBeFalse();
-                        expect(buttonElement.isDisabled).toBeFalse();
+                        expect(buttonElement.isDisabled()).toBeFalse();
                     });
 
                     describe('and user tries to navigate to the address book', () => {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, inject, OnChanges, SimpleChanges, input, output } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { finalize } from 'rxjs';
 import { AddressRow, AddressRowChangeEvent, EditRow } from 'src/app/models/address-book';
@@ -11,8 +11,8 @@ import { AddressBookService } from 'src/app/services/address-book.service';
     standalone: false,
 })
 export class CreateOrEditAddressBookRow implements OnChanges {
-    @Input() data: AddressRow | undefined;
-    @Output() close: EventEmitter<AddressRowChangeEvent> = new EventEmitter<AddressRowChangeEvent>();
+    readonly data = input<AddressRow>();
+    readonly close = output<AddressRowChangeEvent>();
 
     addressBookService: AddressBookService = inject(AddressBookService);
 
@@ -42,30 +42,31 @@ export class CreateOrEditAddressBookRow implements OnChanges {
 
     ngOnChanges(_changes: SimpleChanges): void {
         this.rowData = [
-            { displayableField: 'Name', field: 'name', value: this.data?.name || '' },
-            { displayableField: 'Email', field: 'email', value: this.data?.email || '' },
-            { displayableField: 'Phone', field: 'phone', value: this.data?.phone || '' },
-            { displayableField: 'Address', field: 'address', value: this.data?.address || '' },
-            { displayableField: 'Birthday', field: 'birthday', value: this.data?.birthday || '' },
-            { displayableField: 'Job Role', field: 'jobRole', value: this.data?.jobRole || '' },
-            { displayableField: 'LinkedIn', field: 'linkedIn', value: this.data?.linkedIn || '' },
-            { displayableField: 'Notes', field: 'notes', value: this.data?.notes || '' },
+            { displayableField: 'Name', field: 'name', value: this.data()?.name || '' },
+            { displayableField: 'Email', field: 'email', value: this.data()?.email || '' },
+            { displayableField: 'Phone', field: 'phone', value: this.data()?.phone || '' },
+            { displayableField: 'Address', field: 'address', value: this.data()?.address || '' },
+            { displayableField: 'Birthday', field: 'birthday', value: this.data()?.birthday || '' },
+            { displayableField: 'Job Role', field: 'jobRole', value: this.data()?.jobRole || '' },
+            { displayableField: 'LinkedIn', field: 'linkedIn', value: this.data()?.linkedIn || '' },
+            { displayableField: 'Notes', field: 'notes', value: this.data()?.notes || '' },
         ];
     }
 
     onGridReady(_params: GridReadyEvent): void {
-        this.rowAction = this.data?._id ? 'Edit Row' : 'Add Row';
+        this.rowAction = this.data()?._id ? 'Edit Row' : 'Add Row';
     }
 
     saveRow(): void {
-        if (this.data) {
+        const data = this.data();
+        if (data) {
             this.isLoading = true;
-            const dataRowId = this.data._id;
+            const dataRowId = data._id;
             const shouldCreateRow = dataRowId === '';
             if (shouldCreateRow) {
-                this.createAddressBookRecord(this.data);
+                this.createAddressBookRecord(data);
             } else {
-                this.updateAddressBookRecord(this.data, dataRowId);
+                this.updateAddressBookRecord(data, dataRowId);
             }
         }
     }
@@ -90,9 +91,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
 
     deleteRow(): void {
         this.isLoading = true;
-        if (this.data) {
+        const data = this.data();
+        if (data) {
             this.addressBookService
-                .deleteAddressBookRecord(this.data._id)
+                .deleteAddressBookRecord(data._id)
                 .pipe(finalize(() => (this.isLoading = false)))
                 .subscribe((deletedRecord) => {
                     this.close.emit({ row: deletedRecord, action: 'delete' });
@@ -105,31 +107,32 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     }
 
     onCellValueChanged(event: CellValueChangedEvent<EditRow>): void {
-        if (this.data) {
+        const data = this.data();
+        if (data) {
             //  todo: figure out a better way of doing this
             if (event.data.field === 'name') {
-                this.data.name = event.data.value;
+                data.name = event.data.value;
             }
             if (event.data.field === 'phone') {
-                this.data.phone = event.data.value;
+                data.phone = event.data.value;
             }
             if (event.data.field === 'email') {
-                this.data.email = event.data.value;
+                data.email = event.data.value;
             }
             if (event.data.field === 'address') {
-                this.data.address = event.data.value;
+                data.address = event.data.value;
             }
             if (event.data.field === 'birthday') {
-                this.data.birthday = event.data.value;
+                data.birthday = event.data.value;
             }
             if (event.data.field === 'jobRole') {
-                this.data.jobRole = event.data.value;
+                data.jobRole = event.data.value;
             }
             if (event.data.field === 'linkedIn') {
-                this.data.linkedIn = event.data.value;
+                data.linkedIn = event.data.value;
             }
             if (event.data.field === 'notes') {
-                this.data.notes = event.data.value;
+                data.notes = event.data.value;
             }
         }
     }
