@@ -9,8 +9,12 @@
         placeholder="{{ placeholder }}"
         (input)="onInputTyping($event)"
     />
-    <span *ngIf="hasError" (mouseover)="showTooltip()" (mouseleave)="hideTooltip()" class="info-icon">i</span>
-    <p *ngIf="showTooltipElement" class="tooltip-msg">
-        {{ errorMessage }}
-    </p>
+    @if (hasError) {
+        <span (mouseover)="showTooltip()" (mouseleave)="hideTooltip()" class="info-icon">i</span>
+    }
+    @if (showTooltipElement) {
+        <p class="tooltip-msg">
+            {{ errorMessage }}
+        </p>
+    }
 </div>

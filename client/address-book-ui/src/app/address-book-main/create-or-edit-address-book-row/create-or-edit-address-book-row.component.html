@@ -20,7 +20,9 @@
                 (onClicked)="saveRow()"
             ></app-cc-button>
             <app-cc-button [value]="'Cancel'" (onClicked)="closeModal()"></app-cc-button>
-            <app-cc-button *ngIf="rowAction == 'Edit Row'" [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
+            @if (rowAction == 'Edit Row') {
+                <app-cc-button [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
+            }
         </div>
     </div>
 </div>

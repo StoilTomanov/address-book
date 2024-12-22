@@ -68,7 +68,8 @@ describe('EnterAddressBookComponent', () => {
                     component.onEnterAddressBook();
                 });
 
-                it('it does not novigate the page to the address book', () => {
+                it('it does not navigate the page to the address book', () => {
+                    // todo: rework that when having guards
                     expect(router.navigate).not.toHaveBeenCalled();
                 });
 

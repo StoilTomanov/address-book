@@ -8,7 +8,9 @@
                 (onInput)="onSearchTextBoxChanged($event)"
             ></app-cc-simple-input>
             <div class="clear-input" (click)="onClearSearchInputClicked()">
-                <span *ngIf="searchValue">&#10005;</span>
+                @if (searchValue) {
+                    <span>&#10005;</span>
+                }
             </div>
         </div>
         <div class="add-row-button">
@@ -29,8 +31,9 @@
     </ag-grid-angular>
 </div>
 
-<app-create-or-edit-address-book-row
-    *ngIf="showRowDetails"
-    [data]="selectedRow"
-    (close)="onModalClosed($event)"
-></app-create-or-edit-address-book-row>
+@if (showRowDetails) {
+    <app-create-or-edit-address-book-row
+        [data]="selectedRow"
+        (close)="onModalClosed($event)">
+    </app-create-or-edit-address-book-row>
+}
