@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AgGridModule } from 'ag-grid-angular';
@@ -13,8 +13,8 @@ import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [AppComponent, EnterAddressBookComponent, AddressBookMainComponent, CreateOrEditAddressBookRow],
-    imports: [BrowserModule, AppRoutingModule, SharedModule, AgGridModule, HttpClientModule],
-    providers: [],
     bootstrap: [AppComponent],
+    imports: [BrowserModule, AppRoutingModule, SharedModule, AgGridModule],
+    providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule {}

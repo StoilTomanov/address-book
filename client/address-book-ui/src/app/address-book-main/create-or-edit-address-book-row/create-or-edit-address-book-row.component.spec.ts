@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 /* eslint-disable-next-line import/order */
 import { AgGridModule } from 'ag-grid-angular';
@@ -14,9 +14,9 @@ describe('CreateOrEditAddressBookRow', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientModule, AgGridModule],
             declarations: [CreateOrEditAddressBookRow, CcButtonComponent],
-            providers: [AddressBookService],
+            imports: [AgGridModule],
+            providers: [AddressBookService, provideHttpClient(withInterceptorsFromDi())]
         });
         fixture = TestBed.createComponent(CreateOrEditAddressBookRow);
         component = fixture.componentInstance;
