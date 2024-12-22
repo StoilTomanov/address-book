@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
     selector: 'app-enter-address-book',
     templateUrl: './enter-address-book.component.html',
     styleUrls: ['./enter-address-book.component.scss'],
+    standalone: false,
 })
 export class EnterAddressBookComponent {
     name: string | undefined;

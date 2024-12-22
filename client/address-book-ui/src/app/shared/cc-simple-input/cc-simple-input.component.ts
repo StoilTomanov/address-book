@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     selector: 'app-cc-simple-input',
     templateUrl: './cc-simple-input.component.html',
     styleUrls: ['./cc-simple-input.component.scss'],
+    standalone: false,
 })
 export class CcSimpleInputComponent {
     @Output() onInput: EventEmitter<string> = new EventEmitter<string>();

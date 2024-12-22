@@ -62,10 +62,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "address-book-ui:build:production"
+                          "buildTarget": "address-book-ui:build:production"
                         },
                         "development": {
-                            "browserTarget": "address-book-ui:build:development"
+                          "buildTarget": "address-book-ui:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "address-book-ui:build"
+                      "buildTarget": "address-book-ui:build"
                     }
                 },
                 "test": {

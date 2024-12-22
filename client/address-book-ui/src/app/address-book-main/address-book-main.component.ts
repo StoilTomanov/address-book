@@ -9,6 +9,7 @@ import { AddressBookService } from '../services/address-book.service';
     selector: 'app-address-book-main',
     templateUrl: './address-book-main.component.html',
     styleUrls: ['./address-book-main.component.scss'],
+    standalone: false,
 })
 export class AddressBookMainComponent {
     gridApi: GridApi | undefined;

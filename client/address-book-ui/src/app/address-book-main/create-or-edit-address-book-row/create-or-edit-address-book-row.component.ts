@@ -8,6 +8,7 @@ import { AddressBookService } from 'src/app/services/address-book.service';
     selector: 'app-create-or-edit-address-book-row',
     templateUrl: './create-or-edit-address-book-row.component.html',
     styleUrls: ['./create-or-edit-address-book-row.component.scss'],
+    standalone: false,
 })
 export class CreateOrEditAddressBookRow implements OnChanges {
     @Input() data: AddressRow | undefined;

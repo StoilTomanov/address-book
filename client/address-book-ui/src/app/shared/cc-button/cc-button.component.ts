@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     selector: 'app-cc-button',
     templateUrl: './cc-button.component.html',
     styleUrls: ['./cc-button.component.scss'],
+    standalone: false,
 })
 export class CcButtonComponent {
     @Output() onClicked: EventEmitter<void> = new EventEmitter<void>();
