@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
     standalone: false,
 })
 export class EnterAddressBookComponent {
+    router: Router = inject(Router);
+
     name: string | undefined;
     isDisabled: boolean = true;
     hasError: boolean = false;
-
-    constructor(private router: Router) {}
 
     onInputTyping(inputValue: string): void {
         this.name = inputValue.trim();

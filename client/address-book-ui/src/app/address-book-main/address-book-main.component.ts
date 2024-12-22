@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from 'ag-grid-community';
 import { finalize } from 'rxjs';
 
@@ -12,6 +12,8 @@ import { AddressBookService } from '../services/address-book.service';
     standalone: false,
 })
 export class AddressBookMainComponent {
+    addressBookService: AddressBookService = inject(AddressBookService);
+
     gridApi: GridApi | undefined;
     searchValue: string = '';
     showRowDetails: boolean = false;
@@ -23,8 +25,6 @@ export class AddressBookMainComponent {
         { headerName: 'Phone', field: 'phone', flex: 1, cellStyle: { cursor: 'pointer' } },
         { headerName: 'Email', field: 'email', flex: 1, cellStyle: { cursor: 'pointer' } },
     ];
-
-    constructor(private addressBookService: AddressBookService) {}
 
     private get emptyAddressRow(): AddressRow {
         return {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { finalize } from 'rxjs';
 import { AddressRow, AddressRowChangeEvent, EditRow } from 'src/app/models/address-book';
@@ -13,6 +13,8 @@ import { AddressBookService } from 'src/app/services/address-book.service';
 export class CreateOrEditAddressBookRow implements OnChanges {
     @Input() data: AddressRow | undefined;
     @Output() close: EventEmitter<AddressRowChangeEvent> = new EventEmitter<AddressRowChangeEvent>();
+
+    addressBookService: AddressBookService = inject(AddressBookService);
 
     isLoading: boolean = false;
     columnDefs: ColDef[] = [
@@ -37,8 +39,6 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     rowData: EditRow[] = [];
     editType: 'fullRow' | undefined = 'fullRow';
     rowAction: 'Add Row' | 'Edit Row' | undefined;
-
-    constructor(private addressBookService: AddressBookService) {}
 
     ngOnChanges(_changes: SimpleChanges): void {
         this.rowData = [
