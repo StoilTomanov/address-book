@@ -1,4 +1,4 @@
-import { DebugElement } from '@angular/core';
+import { ComponentRef, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -6,6 +6,7 @@ import { CcSimpleInputComponent } from './cc-simple-input.component';
 
 describe('CcInputComponent', () => {
     let component: CcSimpleInputComponent;
+    let componentRef: ComponentRef<CcSimpleInputComponent>;
     let fixture: ComponentFixture<CcSimpleInputComponent>;
 
     let inputElement: DebugElement;
@@ -18,6 +19,7 @@ describe('CcInputComponent', () => {
         });
         fixture = TestBed.createComponent(CcSimpleInputComponent);
         component = fixture.componentInstance;
+        componentRef = fixture.componentRef;
         inputElement = fixture.debugElement.query(By.css('input'));
         errorElement = fixture.debugElement.query(By.css('.error-message'));
         ccSimpleInputElement = fixture.debugElement;
@@ -36,14 +38,14 @@ describe('CcInputComponent', () => {
     });
 
     it('should display the correct placeholder', () => {
-        component.placeholder = 'Enter your name';
+        componentRef.setInput('placeholder', 'Enter your name');
         fixture.detectChanges();
         expect(inputElement.nativeElement.placeholder).toBe('Enter your name');
     });
 
     it('should display error message when hasError is true', () => {
-        component.hasError = true;
-        component.errorMessage = 'This field is required';
+        componentRef.setInput('hasError', true);
+        componentRef.setInput('errorMessage', 'This field is required');
         fixture.detectChanges();
         const infoIconElement = ccSimpleInputElement.query(By.css('.info-icon'));
         infoIconElement.triggerEventHandler('mouseover', null);
@@ -54,13 +56,13 @@ describe('CcInputComponent', () => {
     });
 
     it('should hide error message when hasError is false', () => {
-        component.hasError = false;
+        componentRef.setInput('hasError', false);
         fixture.detectChanges();
         expect(errorElement).toBeNull();
     });
 
     it('should hide tooltip when mouse leaves the info icon', () => {
-        component.hasError = true;
+        componentRef.setInput('hasError', true);
         fixture.detectChanges();
         const infoIconElement = ccSimpleInputElement.query(By.css('.info-icon'));
         infoIconElement.triggerEventHandler('mouseover', null);
@@ -72,7 +74,7 @@ describe('CcInputComponent', () => {
     });
 
     it('should not display tooltip when hasError is false', () => {
-        component.hasError = false;
+        componentRef.setInput('hasError', false);
         fixture.detectChanges();
         const infoIconElement = ccSimpleInputElement.query(By.css('.info-icon'));
         expect(infoIconElement).toBeNull();
