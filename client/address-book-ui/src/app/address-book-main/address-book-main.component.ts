@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from 'ag-grid-community';
-import { finalize } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 import { AddressRow, AddressRowChangeEvent } from '../models/address-book';
 import { AddressBookService } from '../services/address-book.service';
@@ -11,7 +11,8 @@ import { AddressBookService } from '../services/address-book.service';
     styleUrls: ['./address-book-main.component.scss'],
     standalone: false,
 })
-export class AddressBookMainComponent {
+export class AddressBookMainComponent implements OnDestroy {
+    private destroy$ = new Subject<void>();
     addressBookService: AddressBookService = inject(AddressBookService);
 
     gridApi: GridApi | undefined;
@@ -57,7 +58,10 @@ export class AddressBookMainComponent {
         this.isLoading = true;
         this.addressBookService
             .getAllAddressBookRecords()
-            .pipe(finalize(() => (this.isLoading = false)))
+            .pipe(
+                takeUntil(this.destroy$),
+                finalize(() => (this.isLoading = false))
+            )
             .subscribe((addressBookRows) => {
                 this.rows = addressBookRows;
             });
@@ -93,5 +97,10 @@ export class AddressBookMainComponent {
             default:
                 break;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

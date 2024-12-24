@@ -1,6 +1,6 @@
-import { Component, inject, OnChanges, SimpleChanges, input, output } from '@angular/core';
+import { Component, inject, OnChanges, SimpleChanges, input, output, OnDestroy } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
-import { finalize } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 import { AddressRow, AddressRowChangeEvent, EditRow } from 'src/app/models/address-book';
 import { AddressBookService } from 'src/app/services/address-book.service';
 
@@ -10,9 +10,10 @@ import { AddressBookService } from 'src/app/services/address-book.service';
     styleUrls: ['./create-or-edit-address-book-row.component.scss'],
     standalone: false,
 })
-export class CreateOrEditAddressBookRow implements OnChanges {
+export class CreateOrEditAddressBookRow implements OnChanges, OnDestroy {
     readonly data = input<AddressRow>();
     readonly close = output<AddressRowChangeEvent>();
+    private destroy$ = new Subject<void>();
 
     addressBookService: AddressBookService = inject(AddressBookService);
 
@@ -74,7 +75,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     private createAddressBookRecord(rowData: AddressRow): void {
         this.addressBookService
             .createAddressBookRecord(rowData)
-            .pipe(finalize(() => (this.isLoading = false)))
+            .pipe(
+                takeUntil(this.destroy$),
+                finalize(() => (this.isLoading = false))
+            )
             .subscribe((createdRecord) => {
                 this.close.emit({ row: createdRecord, action: 'create' });
             });
@@ -83,7 +87,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
     private updateAddressBookRecord(rowData: AddressRow, dataRowId: string): void {
         this.addressBookService
             .updateAddressBookRecord(rowData, dataRowId)
-            .pipe(finalize(() => (this.isLoading = false)))
+            .pipe(
+                takeUntil(this.destroy$),
+                finalize(() => (this.isLoading = false))
+            )
             .subscribe((updatedRecord) => {
                 this.close.emit({ row: updatedRecord, action: 'update' });
             });
@@ -95,7 +102,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
         if (data) {
             this.addressBookService
                 .deleteAddressBookRecord(data._id)
-                .pipe(finalize(() => (this.isLoading = false)))
+                .pipe(
+                    takeUntil(this.destroy$),
+                    finalize(() => (this.isLoading = false))
+                )
                 .subscribe((deletedRecord) => {
                     this.close.emit({ row: deletedRecord, action: 'delete' });
                 });
@@ -135,5 +145,10 @@ export class CreateOrEditAddressBookRow implements OnChanges {
                 data.notes = event.data.value;
             }
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
