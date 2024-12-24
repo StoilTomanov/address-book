@@ -83,7 +83,9 @@ export class AddressBookMainComponent {
                 this.rows = this.rows.concat([addressRowChangeEvent.row]);
                 break;
             case 'update':
-                this.rows.map((row) => (row._id === addressRowChangeEvent.row?._id ? addressRowChangeEvent.row : row));
+                this.rows = this.rows.map((row) => {
+                    return row._id === addressRowChangeEvent.row?._id ? addressRowChangeEvent.row : row;
+                });
                 break;
             case 'delete':
                 this.rows = this.rows.filter((row) => row._id !== addressRowChangeEvent.row?._id);
