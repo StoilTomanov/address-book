@@ -1,8 +1,9 @@
 import { Component, inject, output } from '@angular/core';
-import { CellValueChangedEvent, GridReadyEvent } from 'ag-grid-community';
+import { GridReadyEvent } from 'ag-grid-community';
 import { finalize, takeUntil } from 'rxjs';
 
-import { AddressRow, AddressRowChangeEvent, EditRow } from '../../../models/address-book';
+import { AddressRow, AddressRowChangeEvent } from '../../../models/address-book';
+import { ModalChoice } from '../../../models/common';
 import { AddressBookService } from '../../../services/address-book.service';
 import { RowActionsBaseComponent } from '../row-actions-base.component';
 
@@ -41,7 +42,7 @@ export class UpdateRowComponent extends RowActionsBaseComponent {
             });
     }
 
-    override deleteRow(): void {
+    deleteRow(): void {
         this.isLoading = true;
         const data = this.data();
         if (data) {
@@ -57,38 +58,18 @@ export class UpdateRowComponent extends RowActionsBaseComponent {
         }
     }
 
-    override closeModal(): void {
-        this.close.emit({ row: null, action: 'none' });
+    override onDeleteChoice(choice: ModalChoice): void {
+        if (choice === 'Confirm') {
+            this.deleteRow();
+        }
+        this.showDeleteRowConfirmation = false;
     }
 
-    override onCellValueChanged(event: CellValueChangedEvent<EditRow>): void {
-        const data = this.data();
-        if (data) {
-            //  todo: figure out a better way of doing this
-            if (event.data.field === 'name') {
-                data.name = event.data.value;
-            }
-            if (event.data.field === 'phone') {
-                data.phone = event.data.value;
-            }
-            if (event.data.field === 'email') {
-                data.email = event.data.value;
-            }
-            if (event.data.field === 'address') {
-                data.address = event.data.value;
-            }
-            if (event.data.field === 'birthday') {
-                data.birthday = event.data.value;
-            }
-            if (event.data.field === 'jobRole') {
-                data.jobRole = event.data.value;
-            }
-            if (event.data.field === 'linkedIn') {
-                data.linkedIn = event.data.value;
-            }
-            if (event.data.field === 'notes') {
-                data.notes = event.data.value;
-            }
-        }
+    override confirmDeleteRow(): void {
+        this.showDeleteRowConfirmation = true;
+    }
+
+    override closeModal(): void {
+        this.close.emit({ row: null, action: 'none' });
     }
 }

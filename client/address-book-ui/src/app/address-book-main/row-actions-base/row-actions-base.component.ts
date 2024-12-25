@@ -1,8 +1,9 @@
-import { Component, input, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, InputSignal, OnDestroy, OnInit } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Subject } from 'rxjs';
 
 import { AddressRow, EditRow, UserRowAction } from '../../models/address-book';
+import { ModalChoice } from '../../models/common';
 
 
 @Component({
@@ -12,9 +13,9 @@ import { AddressRow, EditRow, UserRowAction } from '../../models/address-book';
     standalone: false,
 })
 export class RowActionsBaseComponent implements OnInit, OnDestroy {
-    readonly data = input<AddressRow>();
+    readonly data: InputSignal<AddressRow | undefined> = input<AddressRow>();
 
-    protected destroy$ = new Subject<void>();
+    protected destroy$: Subject<void> = new Subject<void>();
 
     columnDefs: ColDef[] = [
         {
@@ -37,6 +38,8 @@ export class RowActionsBaseComponent implements OnInit, OnDestroy {
     ];
     rowData: EditRow[] = [];
     rowAction: UserRowAction | undefined;
+
+    showDeleteRowConfirmation: boolean = false;
     isLoading: boolean = false;
 
     ngOnInit(): void {
@@ -61,13 +64,44 @@ export class RowActionsBaseComponent implements OnInit, OnDestroy {
     createRow(): void {
     }
 
-    deleteRow(): void {
+    confirmDeleteRow(): void {
+    }
+
+    onDeleteChoice(_choice: ModalChoice): void {
     }
 
     closeModal(): void {
     }
 
-    onCellValueChanged(_event: CellValueChangedEvent<EditRow>): void {
+    onCellValueChanged(event: CellValueChangedEvent<EditRow>): void {
+        const data = this.data();
+        if (data) {
+            //  todo: figure out a better way of doing this
+            if (event.data.field === 'name') {
+                data.name = event.data.value;
+            }
+            if (event.data.field === 'phone') {
+                data.phone = event.data.value;
+            }
+            if (event.data.field === 'email') {
+                data.email = event.data.value;
+            }
+            if (event.data.field === 'address') {
+                data.address = event.data.value;
+            }
+            if (event.data.field === 'birthday') {
+                data.birthday = event.data.value;
+            }
+            if (event.data.field === 'jobRole') {
+                data.jobRole = event.data.value;
+            }
+            if (event.data.field === 'linkedIn') {
+                data.linkedIn = event.data.value;
+            }
+            if (event.data.field === 'notes') {
+                data.notes = event.data.value;
+            }
+        }
     }
 
     ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 
 @Component({
     selector: 'app-cc-simple-input',
@@ -7,12 +7,12 @@ import { Component, input, output } from '@angular/core';
     standalone: false,
 })
 export class CcSimpleInputComponent {
-    readonly onInput = output<string>();
-    readonly hasError = input<boolean>(false);
-    readonly placeholder = input<string>('');
-    readonly errorMessage = input<string>('');
-    readonly width = input<string>('10rem');
-    readonly value = input<string>('');
+    readonly onInput: OutputEmitterRef<string> = output<string>();
+    readonly hasError: InputSignal<boolean> = input<boolean>(false);
+    readonly placeholder: InputSignal<string> = input<string>('');
+    readonly errorMessage: InputSignal<string> = input<string>('');
+    readonly width: InputSignal<string> = input<string>('10rem');
+    readonly value: InputSignal<string> = input<string>('');
 
     showTooltipElement: boolean = false;
 

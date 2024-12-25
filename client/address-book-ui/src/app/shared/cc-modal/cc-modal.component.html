@@ -1,0 +1,9 @@
+<div class="modal-wrapper">
+    <div class="modal-content">
+        <p>{{message()}}</p>
+        <div class="modal-actions">
+            <app-cc-button [value]="'Confirm'" (onClicked)="onConfirm()"></app-cc-button>
+            <app-cc-button [value]="'Cancel'" (onClicked)="onCancel()"></app-cc-button>
+        </div>
+    </div>
+</div>

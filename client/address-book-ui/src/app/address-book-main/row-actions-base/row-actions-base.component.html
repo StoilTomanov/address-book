@@ -21,10 +21,14 @@
             @if (rowAction !== 'Edit Row') {
                 <app-cc-button [value]="'Create'" (onClicked)="createRow()"></app-cc-button>
             }
-            @if (rowAction == 'Add Row') {
-                <app-cc-button [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
+            @if (rowAction == 'Edit Row') {
+                <app-cc-button [value]="'Delete'" (onClicked)="confirmDeleteRow()"></app-cc-button>
             }
             <app-cc-button [value]="'Cancel'" (onClicked)="closeModal()"></app-cc-button>
         </div>
     </div>
 </div>
+
+@if (showDeleteRowConfirmation) {
+    <app-cc-modal [message]="'Are you sure you want to delete this record?'" (choice)="onDeleteChoice($event)"></app-cc-modal>
+}

@@ -1,34 +1,41 @@
 @import '../../../../src/mixins';
 @import '../../../../src/styles';
+
 .modal-wrapper {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.5rem;
+    backdrop-filter: blur(0px);
+    box-sizing: border-box;
     z-index: 999;
-    height: 100%;
-    width: 100%;
 }
 
-.address-row-details-container {
+.modal-content {
     @include fadeIn-animation(0.3s);
     box-shadow: 0.1rem 0.1rem 0.2rem 0.1rem #a6d1ff;
-    padding: 2rem;
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 0.01rem solid rgb(148, 148, 148);
     border-radius: 0.5rem;
-    z-index: 999;
-    height: 80vh;
-    width: 80vw;
+    height: 20vh;
+    width: 40vw;
     background-color: $ag-theme-quartz-dark;
 }
 
-.action-buttons {
-    display: flex;
-    flex-direction: row;
-    padding: 1rem;
-    gap: 2rem;
+.modal-content p {
+    color: #fff; //todo: use grid's color when doing the themes
 }
+
+.modal-actions > app-cc-button {
+    padding: 2rem;
+}
+
