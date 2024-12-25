@@ -1,9 +1,10 @@
-import { Component, input, InputSignal, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, input, InputSignal, OnDestroy, OnInit } from '@angular/core';
 import { CellValueChangedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Subject } from 'rxjs';
 
 import { AddressRow, EditRow, UserRowAction } from '../../models/address-book';
 import { ModalChoice } from '../../models/common';
+import { AddressBookService } from '../../services/address-book.service';
 
 
 @Component({
@@ -13,8 +14,9 @@ import { ModalChoice } from '../../models/common';
     standalone: false,
 })
 export class RowActionsBaseComponent implements OnInit, OnDestroy {
-    readonly data: InputSignal<AddressRow | undefined> = input<AddressRow>();
+    addressBookService: AddressBookService = inject(AddressBookService);
 
+    readonly data: InputSignal<AddressRow | undefined> = input<AddressRow>();
     protected destroy$: Subject<void> = new Subject<void>();
 
     columnDefs: ColDef[] = [

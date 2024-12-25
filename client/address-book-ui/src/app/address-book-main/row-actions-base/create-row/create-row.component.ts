@@ -1,9 +1,8 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { GridReadyEvent } from 'ag-grid-community';
 import { finalize, takeUntil } from 'rxjs';
 
 import { AddressRow, AddressRowChangeEvent } from '../../../models/address-book';
-import { AddressBookService } from '../../../services/address-book.service';
 import { RowActionsBaseComponent } from '../row-actions-base.component';
 
 @Component({
@@ -14,8 +13,6 @@ import { RowActionsBaseComponent } from '../row-actions-base.component';
 })
 export class CreateRowComponent extends RowActionsBaseComponent {
     readonly close = output<AddressRowChangeEvent>();
-
-    addressBookService: AddressBookService = inject(AddressBookService);
 
     override onGridReady(_params: GridReadyEvent): void {
         this.rowAction = 'Add Row';
