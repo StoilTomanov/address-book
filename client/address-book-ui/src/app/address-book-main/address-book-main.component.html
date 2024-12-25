@@ -1,4 +1,4 @@
-<div class="grid-container" [ngClass]="{ blur: showRowDetails }">
+<div class="grid-container" [ngClass]="{ blur: showUpdateRowView }">
     <div class="top-header">
         <div class="search-bar">
             <app-cc-simple-input
@@ -31,9 +31,16 @@
     </ag-grid-angular>
 </div>
 
-@if (showRowDetails) {
-    <app-create-or-edit-address-book-row
+@if (showUpdateRowView) {
+    <app-update-row
         [data]="selectedRow"
         (close)="onModalClosed($event)">
-    </app-create-or-edit-address-book-row>
+    </app-update-row>
+}
+
+@if (showCreateRowView) {
+    <app-create-row
+        [data]="selectedRow"
+        (close)="onModalClosed($event)">
+    </app-create-row>
 }

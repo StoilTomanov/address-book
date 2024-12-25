@@ -7,7 +7,7 @@
             class="ag-theme-quartz-dark"
             [rowData]="rowData"
             [columnDefs]="columnDefs"
-            [editType]="editType"
+            [editType]="'fullRow'"
             [stopEditingWhenCellsLoseFocus]="true"
             (gridReady)="onGridReady($event)"
             (cellValueChanged)="onCellValueChanged($event)"
@@ -15,14 +15,16 @@
         </ag-grid-angular>
 
         <div class="action-buttons">
-            <app-cc-button
-                [value]="rowAction == 'Edit Row' ? 'Update' : 'Create'"
-                (onClicked)="saveRow()"
-            ></app-cc-button>
-            <app-cc-button [value]="'Cancel'" (onClicked)="closeModal()"></app-cc-button>
-            @if (rowAction == 'Edit Row') {
+            @if (rowAction === 'Edit Row') {
+                <app-cc-button [value]="'Update'" (onClicked)="updateRow()"></app-cc-button>
+            }
+            @if (rowAction !== 'Edit Row') {
+                <app-cc-button [value]="'Create'" (onClicked)="createRow()"></app-cc-button>
+            }
+            @if (rowAction == 'Add Row') {
                 <app-cc-button [value]="'Delete'" (onClicked)="deleteRow()"></app-cc-button>
             }
+            <app-cc-button [value]="'Cancel'" (onClicked)="closeModal()"></app-cc-button>
         </div>
     </div>
 </div>

@@ -12,9 +12,6 @@ import { AddressBookService } from '../services/address-book.service';
 import { CcButtonComponent } from '../shared/cc-button/cc-button.component';
 import { CcSimpleInputComponent } from '../shared/cc-simple-input/cc-simple-input.component';
 import { getDefaultAddressBookRecords } from '../testing/utils';
-import {
-    CreateOrEditAddressBookRow,
-} from './create-or-edit-address-book-row/create-or-edit-address-book-row.component';
 
 describe('AddressBookMainComponent', () => {
     let component: AddressBookMainComponent;
@@ -36,7 +33,6 @@ describe('AddressBookMainComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AddressBookMainComponent,
-                CreateOrEditAddressBookRow,
                 CcSimpleInputComponent,
                 CcButtonComponent,
             ],
@@ -156,7 +152,7 @@ describe('AddressBookMainComponent', () => {
             component.onRowClicked(rowClickEvent);
             fixture.detectChanges();
 
-            createOrEditAddressBookRowComponent = element.query(By.directive(CreateOrEditAddressBookRow));
+            createOrEditAddressBookRowComponent = element.query(By.directive());
         });
 
         it('it sets the selected row', () => {
@@ -170,7 +166,7 @@ describe('AddressBookMainComponent', () => {
         });
 
         it('it shows the details for the row', () => {
-            expect(component.showRowDetails).toEqual(true);
+            expect(component.showUpdateRowView).toEqual(true);
         });
 
         it('it shows the create or edit address book row component ', () => {
@@ -185,11 +181,11 @@ describe('AddressBookMainComponent', () => {
             component.onAddRowClicked();
             fixture.detectChanges();
 
-            createOrEditAddressBookRowComponent = element.query(By.directive(CreateOrEditAddressBookRow));
+            createOrEditAddressBookRowComponent = element.query(By.directive());
         });
 
         it('it shows the details for the row', () => {
-            expect(component.showRowDetails).toEqual(true);
+            expect(component.showUpdateRowView).toEqual(true);
         });
 
         it('it sets the selected row', () => {
@@ -288,11 +284,11 @@ describe('AddressBookMainComponent', () => {
             });
 
             it('it sets the showRowDetails to false', () => {
-                expect(component.showRowDetails).toEqual(false);
+                expect(component.showUpdateRowView).toEqual(false);
             });
 
             it('it closes the create or edit address book row component', () => {
-                createOrEditAddressBookRowComponent = element.query(By.directive(CreateOrEditAddressBookRow));
+                createOrEditAddressBookRowComponent = element.query(By.directive());
                 expect(createOrEditAddressBookRowComponent).toBeNull();
             });
         });
@@ -320,11 +316,11 @@ describe('AddressBookMainComponent', () => {
             });
 
             it('it sets the showRowDetails to false', () => {
-                expect(component.showRowDetails).toEqual(false);
+                expect(component.showUpdateRowView).toEqual(false);
             });
 
             it('it closes the create or edit address book row component', () => {
-                createOrEditAddressBookRowComponent = element.query(By.directive(CreateOrEditAddressBookRow));
+                createOrEditAddressBookRowComponent = element.query(By.directive());
                 expect(createOrEditAddressBookRowComponent).toBeNull();
             });
         });
@@ -366,11 +362,11 @@ describe('AddressBookMainComponent', () => {
             });
 
             it('it sets the showRowDetails to false', () => {
-                expect(component.showRowDetails).toEqual(false);
+                expect(component.showUpdateRowView).toEqual(false);
             });
 
             it('it closes the create or edit address book row component', () => {
-                createOrEditAddressBookRowComponent = element.query(By.directive(CreateOrEditAddressBookRow));
+                createOrEditAddressBookRowComponent = element.query(By.directive());
                 expect(createOrEditAddressBookRowComponent).toBeNull();
             });
         });

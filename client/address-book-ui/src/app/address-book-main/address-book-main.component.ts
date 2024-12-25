@@ -17,7 +17,8 @@ export class AddressBookMainComponent implements OnDestroy {
 
     gridApi: GridApi | undefined;
     searchValue: string = '';
-    showRowDetails: boolean = false;
+    showUpdateRowView: boolean = false;
+    showCreateRowView: boolean = false;
     isLoading: boolean = false;
     selectedRow: AddressRow | undefined;
     rows: AddressRow[] = [];
@@ -69,16 +70,17 @@ export class AddressBookMainComponent implements OnDestroy {
 
     onRowClicked(row: RowClickedEvent<AddressRow>): void {
         this.selectedRow = row.data;
-        this.showRowDetails = true;
+        this.showUpdateRowView = true;
     }
 
     onAddRowClicked(): void {
-        this.showRowDetails = true;
+        this.showCreateRowView = true;
         this.selectedRow = this.emptyAddressRow;
     }
 
     onModalClosed(addressRowChangeEvent: AddressRowChangeEvent): void {
-        this.showRowDetails = false;
+        this.showUpdateRowView = false;
+        this.showCreateRowView = false;
         if (!addressRowChangeEvent.row) {
             return;
         }

@@ -21,3 +21,6 @@ export interface AddressRowChangeEvent {
     row: AddressRow | null;
     action: 'delete' | 'create' | 'update' | 'none';
 }
+
+export type UserRowAction = 'Add Row' | 'Edit Row';
+
