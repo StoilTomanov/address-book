@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { EnterAddressBookComponent } from './enter-address-book/enter-address-book.component';
@@ -8,7 +8,7 @@ import { SharedModule } from './shared/shared.module';
 describe('AppComponent', () => {
     beforeEach(() =>
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule, SharedModule],
+            imports: [SharedModule, RouterModule],
             declarations: [AppComponent, EnterAddressBookComponent],
         })
     );
