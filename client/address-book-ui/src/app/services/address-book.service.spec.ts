@@ -142,6 +142,6 @@ describe('AddressBookService', () => {
     });
 
     afterAll(() => {
-        httpTestingController.verify(); // Optional: Ensure no outstanding requests after all tests
+        httpTestingController.verify();
     });
 });
