@@ -12,6 +12,8 @@ import { AddressBookService } from '../services/address-book.service';
 import { CcButtonComponent } from '../shared/cc-button/cc-button.component';
 import { CcSimpleInputComponent } from '../shared/cc-simple-input/cc-simple-input.component';
 import { getDefaultAddressBookRecords } from '../testing/utils';
+import { CreateRowComponent } from './row-actions-base/create-row/create-row.component';
+import { UpdateRowComponent } from './row-actions-base/update-row/update-row.component';
 
 describe('AddressBookMainComponent', () => {
     let component: AddressBookMainComponent;
@@ -35,6 +37,8 @@ describe('AddressBookMainComponent', () => {
                 AddressBookMainComponent,
                 CcSimpleInputComponent,
                 CcButtonComponent,
+                UpdateRowComponent,
+                CreateRowComponent,
             ],
             imports: [AgGridModule],
             providers: [
@@ -144,7 +148,7 @@ describe('AddressBookMainComponent', () => {
     });
 
     describe('When row is clicked', () => {
-        let createOrEditAddressBookRowComponent: DebugElement;
+        let updateRowComponent: DebugElement;
 
         beforeEach(() => {
             const rowClickEvent: RowClickedEvent = { data: getDefaultAddressBookRecords()[0] } as RowClickedEvent;
@@ -152,7 +156,7 @@ describe('AddressBookMainComponent', () => {
             component.onRowClicked(rowClickEvent);
             fixture.detectChanges();
 
-            createOrEditAddressBookRowComponent = element.query(By.directive());
+            updateRowComponent = element.query(By.directive(UpdateRowComponent));
         });
 
         it('it sets the selected row', () => {
@@ -165,27 +169,27 @@ describe('AddressBookMainComponent', () => {
             });
         });
 
-        it('it shows the details for the row', () => {
+        it('it shows the update row view', () => {
             expect(component.showUpdateRowView).toEqual(true);
         });
 
         it('it shows the create or edit address book row component ', () => {
-            expect(createOrEditAddressBookRowComponent).not.toBeNull();
+            expect(updateRowComponent).not.toBeNull();
         });
     });
 
     describe('When Add Row is clicked', () => {
-        let createOrEditAddressBookRowComponent: DebugElement;
+        let createRowComponent: DebugElement;
 
         beforeEach(() => {
             component.onAddRowClicked();
             fixture.detectChanges();
 
-            createOrEditAddressBookRowComponent = element.query(By.directive());
+            createRowComponent = element.query(By.directive(CreateRowComponent));
         });
 
-        it('it shows the details for the row', () => {
-            expect(component.showUpdateRowView).toEqual(true);
+        it('it shows the create row view', () => {
+            expect(component.showCreateRowView).toEqual(true);
         });
 
         it('it sets the selected row', () => {
@@ -204,12 +208,13 @@ describe('AddressBookMainComponent', () => {
         });
 
         it('it shows the create or edit address book row component ', () => {
-            expect(createOrEditAddressBookRowComponent).not.toBeNull();
+            expect(createRowComponent).not.toBeNull();
         });
     });
 
-    describe('When create or edit component is closed', () => {
-        let createOrEditAddressBookRowComponent: DebugElement;
+    describe('When create or update component is closed', () => {
+        let updateRowComponent: DebugElement;
+        let createRowComponent: DebugElement;
 
         beforeEach(() => {
             const rowClickEvent: RowClickedEvent = { data: getDefaultAddressBookRecords()[0] } as RowClickedEvent;
@@ -288,8 +293,8 @@ describe('AddressBookMainComponent', () => {
             });
 
             it('it closes the create or edit address book row component', () => {
-                createOrEditAddressBookRowComponent = element.query(By.directive());
-                expect(createOrEditAddressBookRowComponent).toBeNull();
+                updateRowComponent = element.query(By.directive(UpdateRowComponent));
+                expect(updateRowComponent).toBeNull();
             });
         });
 
@@ -315,13 +320,13 @@ describe('AddressBookMainComponent', () => {
                 expect(component.rows).toEqual([...getDefaultAddressBookRecords(), newRow]);
             });
 
-            it('it sets the showRowDetails to false', () => {
-                expect(component.showUpdateRowView).toEqual(false);
+            it('it sets the showCreateRowView to false', () => {
+                expect(component.showCreateRowView).toEqual(false);
             });
 
             it('it closes the create or edit address book row component', () => {
-                createOrEditAddressBookRowComponent = element.query(By.directive());
-                expect(createOrEditAddressBookRowComponent).toBeNull();
+                createRowComponent = element.query(By.directive(CreateRowComponent));
+                expect(createRowComponent).toBeNull();
             });
         });
 
@@ -361,13 +366,13 @@ describe('AddressBookMainComponent', () => {
                 ]);
             });
 
-            it('it sets the showRowDetails to false', () => {
+            it('it sets the showUpdateRowView to false', () => {
                 expect(component.showUpdateRowView).toEqual(false);
             });
 
             it('it closes the create or edit address book row component', () => {
-                createOrEditAddressBookRowComponent = element.query(By.directive());
-                expect(createOrEditAddressBookRowComponent).toBeNull();
+                createRowComponent = element.query(By.directive(CreateRowComponent));
+                expect(createRowComponent).toBeNull();
             });
         });
 

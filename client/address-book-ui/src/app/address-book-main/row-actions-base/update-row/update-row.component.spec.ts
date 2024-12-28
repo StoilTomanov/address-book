@@ -1,23 +1,41 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AgGridModule } from 'ag-grid-angular';
+import { Subject } from 'rxjs';
 
 import { UpdateRowComponent } from './update-row.component';
+import { AddressRow } from '../../../models/address-book';
+import { AddressBookService } from '../../../services/address-book.service';
+import { CcButtonComponent } from '../../../shared/cc-button/cc-button.component';
 
 describe('UpdateRowComponent', () => {
-  let component: UpdateRowComponent;
-  let fixture: ComponentFixture<UpdateRowComponent>;
+    let component: UpdateRowComponent;
+    let fixture: ComponentFixture<UpdateRowComponent>;
+    let addressBookService: AddressBookService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [UpdateRowComponent]
-    })
-    .compileComponents();
+    let getAddressBookRecordsSubject: Subject<AddressRow[]>;
 
-    fixture = TestBed.createComponent(UpdateRowComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async () => {
+        getAddressBookRecordsSubject = new Subject<AddressRow[]>();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        addressBookService = jasmine.createSpyObj({
+            getAllAddressBookRecords: getAddressBookRecordsSubject.asObservable(),
+        });
+
+        await TestBed.configureTestingModule({
+            declarations: [UpdateRowComponent, CcButtonComponent],
+            imports: [AgGridModule],
+            providers: [{
+                provide: AddressBookService,
+                useValue: addressBookService,
+            }],
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(UpdateRowComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
