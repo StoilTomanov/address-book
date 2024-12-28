@@ -152,7 +152,6 @@ describe('AddressBookMainComponent', () => {
 
         beforeEach(() => {
             const rowClickEvent: RowClickedEvent = { data: getDefaultAddressBookRecords()[0] } as RowClickedEvent;
-
             component.onRowClicked(rowClickEvent);
             fixture.detectChanges();
 
